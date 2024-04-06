@@ -1,17 +1,18 @@
-using HealthyTreats.WebUI.Data;
+using HealthyTreats.Core.Context;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+var connectionString = builder.Configuration.GetConnectionString("HealthyConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<HealthyContext>(options =>
 	options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-	.AddEntityFrameworkStores<ApplicationDbContext>();
+	.AddEntityFrameworkStores<HealthyContext>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
