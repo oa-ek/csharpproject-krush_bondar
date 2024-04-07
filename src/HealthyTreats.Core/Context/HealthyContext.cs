@@ -1,13 +1,23 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using HealthyTreats.Core.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HealthyTreats.Core.Context
 {
-	public class HealthyContext : IdentityDbContext
+	public class HealthyContext :IdentityDbContext<User, IdentityRole<Guid>, Guid>
 	{
 		public HealthyContext(DbContextOptions<HealthyContext> options)
 			: base(options)
 		{
+
 		}
+		
+
+		public DbSet<Recipe> Recipes => Set<Recipe>();
+		public DbSet<Category> Categorys => Set<Category>();
+		public DbSet<Ingredient> Ingredients => Set<Ingredient>();
+
 	}
 }
+
