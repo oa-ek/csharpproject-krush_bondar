@@ -19,7 +19,7 @@ namespace HealthyTreats.Core.Entities
 
 		[ForeignKey(nameof(Author))]
 		 public Guid? AuthorId { get; set; }
-		
+	
 		[NotMapped]
 		public IFormFile? ImageFile { get; set; }
 		public  virtual ICollection<Category> Categories { get; set; } = new HashSet<Category>();
