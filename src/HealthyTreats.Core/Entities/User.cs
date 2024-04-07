@@ -11,6 +11,7 @@ namespace HealthyTreats.Core.Entities
 	{
 		public string? FullName { get; set; }
 		public virtual ICollection<Recipe> RecipesAuthor { get; set; } = new HashSet<Recipe>();
+		public virtual ICollection<Recipe> RecipesClient { get; set; } = new HashSet<Recipe>();
 	}
 
 }

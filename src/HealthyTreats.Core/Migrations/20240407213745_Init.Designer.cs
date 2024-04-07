@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthyTreats.Core.Migrations
 {
     [DbContext(typeof(HealthyContext))]
-    [Migration("20240407173347_Init")]
+    [Migration("20240407213745_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -86,6 +86,9 @@ namespace HealthyTreats.Core.Migrations
                     b.Property<Guid?>("AuthorId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ClientId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -101,6 +104,8 @@ namespace HealthyTreats.Core.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Recipes");
                 });
@@ -345,7 +350,13 @@ namespace HealthyTreats.Core.Migrations
                         .WithMany("RecipesAuthor")
                         .HasForeignKey("AuthorId");
 
+                    b.HasOne("HealthyTreats.Core.Entities.User", "Client")
+                        .WithMany("RecipesClient")
+                        .HasForeignKey("ClientId");
+
                     b.Navigation("Author");
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("IngredientRecipe", b =>
@@ -417,6 +428,8 @@ namespace HealthyTreats.Core.Migrations
             modelBuilder.Entity("HealthyTreats.Core.Entities.User", b =>
                 {
                     b.Navigation("RecipesAuthor");
+
+                    b.Navigation("RecipesClient");
                 });
 #pragma warning restore 612, 618
         }

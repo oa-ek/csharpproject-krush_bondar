@@ -12,7 +12,16 @@ namespace HealthyTreats.Core.Context
 		{
 
 		}
-		
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<Recipe>()
+				.HasOne(r => r.Author)
+				.WithMany(u => u.RecipesAuthor)
+				.HasForeignKey(r => r.AuthorId)
+				.IsRequired(false);
+		}
 
 		public DbSet<Recipe> Recipes => Set<Recipe>();
 		public DbSet<Category> Categorys => Set<Category>();

@@ -192,7 +192,8 @@ namespace HealthyTreats.Core.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Instructons = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ClientId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -200,6 +201,11 @@ namespace HealthyTreats.Core.Migrations
                     table.ForeignKey(
                         name: "FK_Recipes_AspNetUsers_AuthorId",
                         column: x => x.AuthorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Recipes_AspNetUsers_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -305,6 +311,11 @@ namespace HealthyTreats.Core.Migrations
                 name: "IX_Recipes_AuthorId",
                 table: "Recipes",
                 column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipes_ClientId",
+                table: "Recipes",
+                column: "ClientId");
         }
 
         /// <inheritdoc />
