@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HealthyTreats.Core.Context
 {
-	 public static class DataSeed
+	public static class DataSeed
 	{
 		public static void Seed(this ModelBuilder builder)
 		{
@@ -84,28 +84,25 @@ namespace HealthyTreats.Core.Context
 				Name = "Chocolate Cake",
 				Description = "Delicious chocolate cake recipe",
 				Instructons = "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.",
-				AuthorId = userId,
-				Categories = new List<Category> { new Category { Id = categoryId } },
-				Ingredients = new List<Ingredient>
-				{
-					new Ingredient { Id = Guid.NewGuid(), Title = "Flour", Quantity = 2, Unit = "cups" },
-					new Ingredient { Id = Guid.NewGuid(), Title = "Sugar", Quantity = 1.5f, Unit = "cups" },
-					new Ingredient { Id = Guid.NewGuid(), Title = "Cocoa powder", Quantity = 0.5f, Unit = "cup" },
-					new Ingredient { Id = Guid.NewGuid(), Title = "Baking powder", Quantity = 1, Unit = "tsp" },
-					new Ingredient { Id = Guid.NewGuid(), Title = "Salt", Quantity = 0.5f, Unit = "tsp" },
-					new Ingredient { Id = Guid.NewGuid(), Title = "Eggs", Quantity = 2, Unit = "units" },
-					new Ingredient { Id = Guid.NewGuid(), Title = "Milk", Quantity = 1, Unit = "cup" },
-					new Ingredient { Id = Guid.NewGuid(), Title = "Vegetable oil", Quantity = 0.5f, Unit = "cup" },
-					new Ingredient { Id = Guid.NewGuid(), Title = "Vanilla extract", Quantity = 1, Unit = "tsp" },
-					new Ingredient { Id = Guid.NewGuid(), Title = "Hot water", Quantity = 1, Unit = "cup" }
-				}
+				AuthorId = userId
 			};
 
-			builder.Entity<Recipe>()
-				.HasData(recipe);
+			// Add the recipe to the context
+			builder.Entity<Recipe>().HasData(recipe);
+
+			// EF Core automatically adds records to the intermediate table RecipeCategory
+
+			// Add code to add records to the intermediate table for many-to-many relationship with ingredients
+
+			// For each ingredient you want to add to the recipe, create an IngredientRecipe object and add it to the context
+			// builder.Entity<Recipe>().HasData(recipe);
+
+			// Add other records for other ingredients that need to be added to the recipe
 
 			return recipeId;
 		}
+
+
 	}
 }
 

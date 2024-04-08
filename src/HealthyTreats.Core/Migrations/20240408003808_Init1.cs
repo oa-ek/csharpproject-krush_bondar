@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace HealthyTreats.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Init1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -193,7 +195,9 @@ namespace HealthyTreats.Core.Migrations
                     Instructons = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    ClientId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    ClientId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IngredientId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -257,6 +261,29 @@ namespace HealthyTreats.Core.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { new Guid("6817fd92-fced-466c-bfdd-1efd2ed89cbc"), 0, "def53f2f-640e-432e-99d1-74faef2f3732", "user1@example.com", true, "John Doe", false, null, null, "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAED5jdEaEfFB5hFWg03bsCf5UdTnyD3cBLxFfOJDbXoxcEtD3kVouuEF+BRbaWIXT2Q==", null, false, null, false, "user1@example.com" },
+                    { new Guid("7f041a73-5742-484d-b321-4ae2386366d4"), 0, "da515d06-d2d1-4c2a-9c40-f4f545d13552", "user2@example.com", true, "Jane Smith", false, null, null, "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEETXsQWjxGLCumwwjKtuNyUGSNdt0zynsg86ahJWLaBDBUAmJvuntFPUULdvs5Qp8A==", null, false, null, false, "user2@example.com" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categorys",
+                columns: new[] { "Id", "TitleCategory" },
+                values: new object[,]
+                {
+                    { new Guid("2ad27f77-0657-4af0-b9b4-1efb6276d815"), "Vegan" },
+                    { new Guid("fc0c18e0-c5d1-4fe1-baba-7e892b75b752"), "Vegatarian" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Recipes",
+                columns: new[] { "Id", "AuthorId", "CategoryId", "ClientId", "Description", "ImagePath", "IngredientId", "Instructons", "Name" },
+                values: new object[] { new Guid("d6c195a7-2e24-49ea-b866-92cc74eb1c47"), new Guid("6817fd92-fced-466c-bfdd-1efd2ed89cbc"), null, null, "Delicious chocolate cake recipe", "/img/projects/no_photo.jpg", null, "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.", "Chocolate Cake" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
