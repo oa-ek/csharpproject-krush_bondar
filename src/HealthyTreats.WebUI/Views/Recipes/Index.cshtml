@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Healthy Treats";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a href="/Recipes/Create" class="btn btn-success float-end">Додати рецепт</a>
+
+<h1>@ViewData["Title"]</h1>
+<div class="card">
+    <img src="path_to_image.jpg" alt="Страва" class="card-img-top">
+    <div class="card-body">
+        <h5 class="card-title">Назва страви</h5>
+        <p class="card-text">Опис страви тут...</p>
+    </div>
+</div>
+
+<div class="row">
+    @if (Model != null)
+    {
+        @foreach (var p in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="cвиня.jpg" alt="Зображення страви">
+                    <div class="card-body">
+                        <h5 class="card-title">@p.Name</h5>
+                        <p class="card-text">@p.Description</p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Немає даних для відображення</p>
+    }
+</div>

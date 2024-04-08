@@ -1,0 +1,60 @@
+﻿@using HealthyTreats.Core.Entities
+@model Recipe
+@{
+    var types = ViewBag.Category as List<SelectListItem>;
+}
+
+<h1>Новий рецепт</h1>
+
+<form asp-action="Create" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="mb-3">
+        @Html.DisplayNameFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        @Html.DisplayNameFor(model => model.Description)
+        @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-3">
+        @Html.DisplayNameFor(model => model.Instructons)
+        @Html.TextBoxFor(model => model.Instructons, new { @class = "form-control" })
+        <span asp-validation-for="Instructons" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Ingredients">Інгредієнти</label>
+        <input asp-for="Ingredients" class="form-control" />
+        <span asp-validation-for="Ingredients" class="text-danger"></span>
+    </div>
+
+    <button type="button" id="addIngredientBtn" class="btn btn-primary">Додати інгредієнт</button>
+
+    <ul id="ingredientList"></ul>
+
+    <div class="form-group mt-3">
+        @Html.DisplayNameFor(model => model.ImageFile)
+        <input asp-for="ImageFile" accept="image/*" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <select asp-for="CategoryId" asp-items="@(types)" id="x1" class="form-control">
+            <option value="0" selected="selected">- Оберіть категорію -</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Зберегти</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
