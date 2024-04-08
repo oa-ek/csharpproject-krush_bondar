@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace HealthyTreats.Core.Migrations
 {
     /// <inheritdoc />
@@ -261,38 +259,6 @@ namespace HealthyTreats.Core.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { new Guid("92c511ae-40af-47d7-ae80-8ce83caa07c8"), 0, "7b81d91d-262e-47d4-a967-cb3bd08ff857", "user2@example.com", true, "Jane Smith", false, null, null, "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEEmy8utZrFIdIyfG1h5/AsTwGgjmnpVoYz58vZngJt3QVlQ+EgcaNboPTuE4p48Jzw==", null, false, null, false, "user2@example.com" },
-                    { new Guid("973628cd-92dc-44d1-ab21-c5d26525f978"), 0, "891060b5-fb8f-4c52-b81c-89ae160d574a", "user1@example.com", true, "John Doe", false, null, null, "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEOS8rDWs3q+tAsgOPWir4dVruIRyAfBIXrRKM6tSMqd6d4B2RwWpkkT7SQ8xU9V5lw==", null, false, null, false, "user1@example.com" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Categorys",
-                columns: new[] { "Id", "TitleCategory" },
-                values: new object[,]
-                {
-                    { new Guid("33073239-0588-41b7-a3c8-b3d4faae55b0"), "Vegatarian" },
-                    { new Guid("79c40421-415f-4bae-b1b5-5e56e55d48f0"), "Vegan" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Ingredients",
-                columns: new[] { "Id", "Quantity", "Title", "Unit" },
-                values: new object[,]
-                {
-                    { new Guid("5a34b1fc-5549-4a46-9032-d9c4e238bc1c"), 5f, "Vegan1", "Vegan4" },
-                    { new Guid("b8746e2c-59c5-4575-a87a-cecdaef4c49f"), 5f, "Vegan3", "Vegan6" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Recipes",
-                columns: new[] { "Id", "AuthorId", "CategoryId", "ClientId", "Description", "ImagePath", "IngredientId", "Instructons", "Name" },
-                values: new object[] { new Guid("c616e85d-1b53-43f6-9489-c5e04e67cd41"), new Guid("973628cd-92dc-44d1-ab21-c5d26525f978"), new Guid("79c40421-415f-4bae-b1b5-5e56e55d48f0"), null, "Delicious chocolate cake recipe", "/img/projects/no_photo.jpg", new Guid("5a34b1fc-5549-4a46-9032-d9c4e238bc1c"), "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.", "Chocolate Cake" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
