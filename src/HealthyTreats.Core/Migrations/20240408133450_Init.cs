@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HealthyTreats.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class Init1 : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -267,8 +267,8 @@ namespace HealthyTreats.Core.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("6817fd92-fced-466c-bfdd-1efd2ed89cbc"), 0, "def53f2f-640e-432e-99d1-74faef2f3732", "user1@example.com", true, "John Doe", false, null, null, "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAED5jdEaEfFB5hFWg03bsCf5UdTnyD3cBLxFfOJDbXoxcEtD3kVouuEF+BRbaWIXT2Q==", null, false, null, false, "user1@example.com" },
-                    { new Guid("7f041a73-5742-484d-b321-4ae2386366d4"), 0, "da515d06-d2d1-4c2a-9c40-f4f545d13552", "user2@example.com", true, "Jane Smith", false, null, null, "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEETXsQWjxGLCumwwjKtuNyUGSNdt0zynsg86ahJWLaBDBUAmJvuntFPUULdvs5Qp8A==", null, false, null, false, "user2@example.com" }
+                    { new Guid("064ca295-601a-417f-a77d-ca5607a3bbf3"), 0, "2e6e31fb-ab5f-485e-be7e-29421f9a0b2b", "user1@example.com", true, "John Doe", false, null, null, "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEDGcHfe5EYMb4Ev+nBmfXthxwKBWW+YCfRJ9dY++F472V29ABbM3hNqxbLxRq5QlEA==", null, false, null, false, "user1@example.com" },
+                    { new Guid("1cf13647-bdd0-4257-bdc5-c55c30af614b"), 0, "c980899d-3101-4f84-b397-efff288e6e80", "user2@example.com", true, "Jane Smith", false, null, null, "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEDGqiIhYNfucNhlQSBRaVo7+zXFIepuRpC03fwVHk0gqgKvcprS1DBYlJ5HcTyxLlQ==", null, false, null, false, "user2@example.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -276,14 +276,23 @@ namespace HealthyTreats.Core.Migrations
                 columns: new[] { "Id", "TitleCategory" },
                 values: new object[,]
                 {
-                    { new Guid("2ad27f77-0657-4af0-b9b4-1efb6276d815"), "Vegan" },
-                    { new Guid("fc0c18e0-c5d1-4fe1-baba-7e892b75b752"), "Vegatarian" }
+                    { new Guid("236658f9-c109-48e6-ae3d-b6d7a2eb89cc"), "Vegan" },
+                    { new Guid("eda3086a-92b9-46e2-88f7-83eb595bb0fd"), "Vegatarian" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Ingredients",
+                columns: new[] { "Id", "Quantity", "Title", "Unit" },
+                values: new object[,]
+                {
+                    { new Guid("420a88be-7445-4ad7-94a8-d15dd522eab4"), 5f, "Vegan1", "Vegan4" },
+                    { new Guid("b5d4aa4f-0235-4619-aac9-21b26836972a"), 5f, "Vegan3", "Vegan6" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Recipes",
                 columns: new[] { "Id", "AuthorId", "CategoryId", "ClientId", "Description", "ImagePath", "IngredientId", "Instructons", "Name" },
-                values: new object[] { new Guid("d6c195a7-2e24-49ea-b866-92cc74eb1c47"), new Guid("6817fd92-fced-466c-bfdd-1efd2ed89cbc"), null, null, "Delicious chocolate cake recipe", "/img/projects/no_photo.jpg", null, "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.", "Chocolate Cake" });
+                values: new object[] { new Guid("c20252a2-3685-4d4d-b7ea-1dc45f22a839"), new Guid("064ca295-601a-417f-a77d-ca5607a3bbf3"), null, null, "Delicious chocolate cake recipe", "/img/projects/no_photo.jpg", null, "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.", "Chocolate Cake" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

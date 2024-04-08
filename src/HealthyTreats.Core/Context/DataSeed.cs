@@ -15,6 +15,7 @@ namespace HealthyTreats.Core.Context
 		{
 			var userId = _seedUsers(builder);
 			var categoryId = _seedCategories(builder);
+			var ingredientId = _seedIngredients(builder);
 			var recipeId = _seedRecipes(builder, userId, categoryId);
 		}
 
@@ -73,7 +74,33 @@ namespace HealthyTreats.Core.Context
 
 			return categoryId;
 		}
+		private static Guid _seedIngredients(ModelBuilder builder)
+		{
+			var ingredientsId = Guid.NewGuid();
 
+			var ingredients = new Ingredient
+			{
+				Id = ingredientsId,
+				Title = "Vegan1",
+			 Quantity = 5,
+		Unit = "Vegan4"
+
+			};
+
+			var ingredients2 = new Ingredient
+			{
+				Id = Guid.NewGuid(),
+				Title = "Vegan3",
+				Quantity = 5,
+				Unit = "Vegan6"
+
+			};
+
+			builder.Entity<Ingredient>()
+				.HasData(ingredients, ingredients2);
+
+			return ingredientsId;
+		}
 		private static Guid _seedRecipes(ModelBuilder builder, Guid userId, Guid categoryId)
 		{
 			var recipeId = Guid.NewGuid();
