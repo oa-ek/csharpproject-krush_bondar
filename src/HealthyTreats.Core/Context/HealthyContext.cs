@@ -25,7 +25,7 @@ namespace HealthyTreats.Core.Context
 			modelBuilder.Entity<Recipe>()
 				.HasMany(r => r.Categories)
 				.WithMany(c => c.Recipes)
-				.UsingEntity(j => j.ToTable("RecipeCategory")); // Вказуємо ім'я таблиці проміжного зв'язку
+				.UsingEntity(j => j.ToTable("RecipeCategory"));
 
 			modelBuilder.Entity<Recipe>()
 				.HasMany(r => r.Ingredients)
