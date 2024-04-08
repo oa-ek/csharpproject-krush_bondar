@@ -215,30 +215,6 @@ namespace HealthyTreats.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CategoryRecipe",
-                columns: table => new
-                {
-                    CategoriesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RecipesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CategoryRecipe", x => new { x.CategoriesId, x.RecipesId });
-                    table.ForeignKey(
-                        name: "FK_CategoryRecipe_Categorys_CategoriesId",
-                        column: x => x.CategoriesId,
-                        principalTable: "Categorys",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CategoryRecipe_Recipes_RecipesId",
-                        column: x => x.RecipesId,
-                        principalTable: "Recipes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "IngredientRecipe",
                 columns: table => new
                 {
@@ -262,13 +238,37 @@ namespace HealthyTreats.Core.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "RecipeCategory",
+                columns: table => new
+                {
+                    CategoriesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RecipesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecipeCategory", x => new { x.CategoriesId, x.RecipesId });
+                    table.ForeignKey(
+                        name: "FK_RecipeCategory_Categorys_CategoriesId",
+                        column: x => x.CategoriesId,
+                        principalTable: "Categorys",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RecipeCategory_Recipes_RecipesId",
+                        column: x => x.RecipesId,
+                        principalTable: "Recipes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("064ca295-601a-417f-a77d-ca5607a3bbf3"), 0, "2e6e31fb-ab5f-485e-be7e-29421f9a0b2b", "user1@example.com", true, "John Doe", false, null, null, "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEDGcHfe5EYMb4Ev+nBmfXthxwKBWW+YCfRJ9dY++F472V29ABbM3hNqxbLxRq5QlEA==", null, false, null, false, "user1@example.com" },
-                    { new Guid("1cf13647-bdd0-4257-bdc5-c55c30af614b"), 0, "c980899d-3101-4f84-b397-efff288e6e80", "user2@example.com", true, "Jane Smith", false, null, null, "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEDGqiIhYNfucNhlQSBRaVo7+zXFIepuRpC03fwVHk0gqgKvcprS1DBYlJ5HcTyxLlQ==", null, false, null, false, "user2@example.com" }
+                    { new Guid("92c511ae-40af-47d7-ae80-8ce83caa07c8"), 0, "7b81d91d-262e-47d4-a967-cb3bd08ff857", "user2@example.com", true, "Jane Smith", false, null, null, "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEEmy8utZrFIdIyfG1h5/AsTwGgjmnpVoYz58vZngJt3QVlQ+EgcaNboPTuE4p48Jzw==", null, false, null, false, "user2@example.com" },
+                    { new Guid("973628cd-92dc-44d1-ab21-c5d26525f978"), 0, "891060b5-fb8f-4c52-b81c-89ae160d574a", "user1@example.com", true, "John Doe", false, null, null, "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEOS8rDWs3q+tAsgOPWir4dVruIRyAfBIXrRKM6tSMqd6d4B2RwWpkkT7SQ8xU9V5lw==", null, false, null, false, "user1@example.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -276,8 +276,8 @@ namespace HealthyTreats.Core.Migrations
                 columns: new[] { "Id", "TitleCategory" },
                 values: new object[,]
                 {
-                    { new Guid("236658f9-c109-48e6-ae3d-b6d7a2eb89cc"), "Vegan" },
-                    { new Guid("eda3086a-92b9-46e2-88f7-83eb595bb0fd"), "Vegatarian" }
+                    { new Guid("33073239-0588-41b7-a3c8-b3d4faae55b0"), "Vegatarian" },
+                    { new Guid("79c40421-415f-4bae-b1b5-5e56e55d48f0"), "Vegan" }
                 });
 
             migrationBuilder.InsertData(
@@ -285,14 +285,14 @@ namespace HealthyTreats.Core.Migrations
                 columns: new[] { "Id", "Quantity", "Title", "Unit" },
                 values: new object[,]
                 {
-                    { new Guid("420a88be-7445-4ad7-94a8-d15dd522eab4"), 5f, "Vegan1", "Vegan4" },
-                    { new Guid("b5d4aa4f-0235-4619-aac9-21b26836972a"), 5f, "Vegan3", "Vegan6" }
+                    { new Guid("5a34b1fc-5549-4a46-9032-d9c4e238bc1c"), 5f, "Vegan1", "Vegan4" },
+                    { new Guid("b8746e2c-59c5-4575-a87a-cecdaef4c49f"), 5f, "Vegan3", "Vegan6" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Recipes",
                 columns: new[] { "Id", "AuthorId", "CategoryId", "ClientId", "Description", "ImagePath", "IngredientId", "Instructons", "Name" },
-                values: new object[] { new Guid("c20252a2-3685-4d4d-b7ea-1dc45f22a839"), new Guid("064ca295-601a-417f-a77d-ca5607a3bbf3"), null, null, "Delicious chocolate cake recipe", "/img/projects/no_photo.jpg", null, "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.", "Chocolate Cake" });
+                values: new object[] { new Guid("c616e85d-1b53-43f6-9489-c5e04e67cd41"), new Guid("973628cd-92dc-44d1-ab21-c5d26525f978"), new Guid("79c40421-415f-4bae-b1b5-5e56e55d48f0"), null, "Delicious chocolate cake recipe", "/img/projects/no_photo.jpg", new Guid("5a34b1fc-5549-4a46-9032-d9c4e238bc1c"), "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.", "Chocolate Cake" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -334,13 +334,13 @@ namespace HealthyTreats.Core.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryRecipe_RecipesId",
-                table: "CategoryRecipe",
+                name: "IX_IngredientRecipe_RecipesId",
+                table: "IngredientRecipe",
                 column: "RecipesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IngredientRecipe_RecipesId",
-                table: "IngredientRecipe",
+                name: "IX_RecipeCategory_RecipesId",
+                table: "RecipeCategory",
                 column: "RecipesId");
 
             migrationBuilder.CreateIndex(
@@ -373,19 +373,19 @@ namespace HealthyTreats.Core.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CategoryRecipe");
+                name: "IngredientRecipe");
 
             migrationBuilder.DropTable(
-                name: "IngredientRecipe");
+                name: "RecipeCategory");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Categorys");
+                name: "Ingredients");
 
             migrationBuilder.DropTable(
-                name: "Ingredients");
+                name: "Categorys");
 
             migrationBuilder.DropTable(
                 name: "Recipes");

@@ -16,7 +16,7 @@ namespace HealthyTreats.Core.Context
 			var userId = _seedUsers(builder);
 			var categoryId = _seedCategories(builder);
 			var ingredientId = _seedIngredients(builder);
-			var recipeId = _seedRecipes(builder, userId, categoryId);
+			var recipeId = _seedRecipes(builder, userId, categoryId, ingredientId);
 		}
 
 		private static Guid _seedUsers(ModelBuilder builder)
@@ -101,7 +101,7 @@ namespace HealthyTreats.Core.Context
 
 			return ingredientsId;
 		}
-		private static Guid _seedRecipes(ModelBuilder builder, Guid userId, Guid categoryId)
+		private static Guid _seedRecipes(ModelBuilder builder, Guid userId, Guid categoryId, Guid ingredientsId)
 		{
 			var recipeId = Guid.NewGuid();
 
@@ -111,20 +111,13 @@ namespace HealthyTreats.Core.Context
 				Name = "Chocolate Cake",
 				Description = "Delicious chocolate cake recipe",
 				Instructons = "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.",
-				AuthorId = userId
+				AuthorId = userId,
+				CategoryId = categoryId,// Додаємо ідентифікатор категорії без проміжного класу
+				IngredientId = ingredientsId // Додаємо ідентифікатор категорії без проміжного класу
 			};
 
-			// Add the recipe to the context
+			// Додайте рецепт до контексту
 			builder.Entity<Recipe>().HasData(recipe);
-
-			// EF Core automatically adds records to the intermediate table RecipeCategory
-
-			// Add code to add records to the intermediate table for many-to-many relationship with ingredients
-
-			// For each ingredient you want to add to the recipe, create an IngredientRecipe object and add it to the context
-			// builder.Entity<Recipe>().HasData(recipe);
-
-			// Add other records for other ingredients that need to be added to the recipe
 
 			return recipeId;
 		}

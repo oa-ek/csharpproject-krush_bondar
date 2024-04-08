@@ -16,20 +16,21 @@ namespace HealthyTreats.Core.Context
 		{
 			base.OnModelCreating(modelBuilder);
 
-			modelBuilder.
-				Entity<Recipe>()
+			modelBuilder.Entity<Recipe>()
 				.HasOne(r => r.Author)
 				.WithMany(u => u.RecipesAuthor)
 				.HasForeignKey(r => r.AuthorId)
 				.IsRequired(false);
 
 			modelBuilder.Entity<Recipe>()
-	.HasMany(r => r.Categories)
-	.WithMany(c => c.Recipes);
+				.HasMany(r => r.Categories)
+				.WithMany(c => c.Recipes)
+				.UsingEntity(j => j.ToTable("RecipeCategory")); // Вказуємо ім'я таблиці проміжного зв'язку
 
-			modelBuilder.Entity<Ingredient>()
-	.HasMany(i => i.Recipes)
-	.WithMany(r => r.Ingredients);
+			modelBuilder.Entity<Recipe>()
+				.HasMany(r => r.Ingredients)
+				.WithMany(i => i.Recipes);
+
 			modelBuilder.Seed();
 		}
 
