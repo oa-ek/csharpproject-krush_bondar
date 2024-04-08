@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthyTreats.Core.Migrations
 {
     [DbContext(typeof(HealthyContext))]
-    [Migration("20240408153454_Init")]
-    partial class Init
+    [Migration("20240408162920_Init1")]
+    partial class Init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,18 @@ namespace HealthyTreats.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categorys");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("765df891-6b18-4a55-a802-1a635d4fd051"),
+                            TitleCategory = "Vegan"
+                        },
+                        new
+                        {
+                            Id = new Guid("43cd9fdd-0793-446f-b2d5-5c069275160d"),
+                            TitleCategory = "Vegatarian"
+                        });
                 });
 
             modelBuilder.Entity("HealthyTreats.Core.Entities.Ingredient", b =>
@@ -75,6 +87,22 @@ namespace HealthyTreats.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ingredients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("82076315-caa5-4b06-b0ea-ce2bfa9d3149"),
+                            Quantity = 5f,
+                            Title = "Vegan1",
+                            Unit = "Vegan4"
+                        },
+                        new
+                        {
+                            Id = new Guid("4eb60568-f4b8-4cd4-bd83-e7bf2542ddf9"),
+                            Quantity = 5f,
+                            Title = "Vegan3",
+                            Unit = "Vegan6"
+                        });
                 });
 
             modelBuilder.Entity("HealthyTreats.Core.Entities.Recipe", b =>
@@ -114,6 +142,19 @@ namespace HealthyTreats.Core.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("Recipes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("2779cd60-9bff-435b-91ac-3b3aa1e50456"),
+                            AuthorId = new Guid("beed03ef-574b-4dee-9ddd-b49074e03229"),
+                            CategoryId = new Guid("765df891-6b18-4a55-a802-1a635d4fd051"),
+                            Description = "Delicious chocolate cake recipe",
+                            ImagePath = "/img/projects/no_photo.jpg",
+                            IngredientId = new Guid("82076315-caa5-4b06-b0ea-ce2bfa9d3149"),
+                            Instructons = "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.",
+                            Name = "Chocolate Cake"
+                        });
                 });
 
             modelBuilder.Entity("HealthyTreats.Core.Entities.User", b =>
@@ -183,6 +224,38 @@ namespace HealthyTreats.Core.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("beed03ef-574b-4dee-9ddd-b49074e03229"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "11ddbf91-9194-4ca5-9bb8-a1f59d1c89f4",
+                            Email = "user1@example.com",
+                            EmailConfirmed = true,
+                            FullName = "John Doe",
+                            LockoutEnabled = false,
+                            NormalizedUserName = "USER1@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKvqnt2FgIPTRSvWC2W/tQvRLtLsq1r9O21gRAgg8qApI3g35rfmKSppG+7HV07hxg==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "user1@example.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("e89f26bd-7a71-4a10-ab48-78239c7c6b13"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6b7498ed-f09d-44d9-bd15-1365d700f3c9",
+                            Email = "user2@example.com",
+                            EmailConfirmed = true,
+                            FullName = "Jane Smith",
+                            LockoutEnabled = false,
+                            NormalizedUserName = "USER2@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHB8/SuVIPRFUw3Us3MrUF5vzb0RUeODBP4kWW7B+CpAVqSEGI8YM1amif/kXlU1Kw==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "user2@example.com"
+                        });
                 });
 
             modelBuilder.Entity("IngredientRecipe", b =>

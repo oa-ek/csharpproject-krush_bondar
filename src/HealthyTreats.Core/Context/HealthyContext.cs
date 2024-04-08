@@ -31,6 +31,7 @@ namespace HealthyTreats.Core.Context
 				.HasMany(r => r.Ingredients)
 				.WithMany(i => i.Recipes);
 
+			modelBuilder.Seed();
 		}
 
 		public DbSet<Recipe> Recipes => Set<Recipe>();
