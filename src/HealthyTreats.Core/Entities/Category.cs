@@ -10,6 +10,9 @@ namespace HealthyTreats.Core.Entities
 	{
 		public Guid Id { get; set; } = Guid.NewGuid();
 		public string TitleCategory { get; set; }
-		public virtual ICollection<Recipe> Recipes { get; set; } = new HashSet<Recipe>();
+
+
+
+        public virtual ICollection<Recipe> Recipes { get; set; } = new HashSet<Recipe>();
 	}
 }
