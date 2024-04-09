@@ -23,9 +23,9 @@ namespace HealthyTreats.Core.Context
               .IsRequired(false);
 
             modelBuilder.Entity<Recipe>()
-              .HasMany(r => r.Categories)
-              .WithMany(c => c.Recipes)
-              .UsingEntity(j => j.ToTable("RecipeCategory"));
+                         .HasMany(r => r.Categories)
+                         .WithMany(c => c.Recipes)
+                         .UsingEntity(j => j.ToTable("RecipeCategory"));
 
             modelBuilder.Entity<Recipe>()
               .HasMany(r => r.Ingredients)
