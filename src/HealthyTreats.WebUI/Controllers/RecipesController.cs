@@ -33,6 +33,7 @@ namespace HealthyTreats.WebUI.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
+       
         public async Task<IActionResult> Index()
         {
             var recipes = await _recipeRepository.GetAllAsync();
@@ -86,6 +87,36 @@ namespace HealthyTreats.WebUI.Controllers
             return View(model);
         }
 
+        [HttpPost("CreateWithDetails")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateWithDetails(Recipe model, List<Guid> SelectedCategories, List<Ingredient> Ingredients)
+        {
+            if (ModelState.IsValid)
+            {
+                // Збереження обраних категорій
+                foreach (var categoryId in SelectedCategories)
+                {
+                    var category = await _recipeRepository.GetCategoryAsync(categoryId);
+                    if (category != null)
+                    {
+                        model.Categories.Add(category);
+                    }
+                }
+
+                // Збереження інгредієнтів
+                foreach (var ingredient in Ingredients)
+                {
+                    model.Ingredients.Add(ingredient);
+                }
+
+                await _recipeRepository.CreateAsync(model);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
+            return View(model);
+        }
 
 
         // GET: ProjectsController/Edit/5

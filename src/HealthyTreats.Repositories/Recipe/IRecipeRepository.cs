@@ -12,6 +12,7 @@ namespace HealthyTreats.Repositories.Recipe
     public interface IRecipeRepository : IRepository<HealthyTreats.Core.Entities.Recipe, Guid>
     {
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
+        Task<Category> GetCategoryAsync(Guid categoryId);
 
     }
 
