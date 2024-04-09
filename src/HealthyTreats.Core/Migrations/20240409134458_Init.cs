@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HealthyTreats.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class Init1 : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -267,8 +267,8 @@ namespace HealthyTreats.Core.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("6b630bab-0360-4825-bafd-f59aa583cfe3"), 0, "4d4600ba-bc15-4093-8653-d62f652c3fa1", "user2@example.com", true, "Jane Smith", false, null, null, "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEMSuK00tDjl8GUIuyOv8Vqi6lhm1ROtwmkE+PXDgmiHN7be5P8yuG6k4nSRuycRjWg==", null, false, null, false, "user2@example.com" },
-                    { new Guid("ca240722-3987-43e6-b289-5934973af578"), 0, "f1cc618f-bdf2-4e1d-94d8-2dd2dc24818d", "user1@example.com", true, "John Doe", false, null, null, "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEN9T5Y9OLa31E/ng31eMBGfw04YbirYB44UrV6zts1yQsKt6lEm1onflLThuDIKnRg==", null, false, null, false, "user1@example.com" }
+                    { new Guid("77977cf5-b48f-4c83-a22b-6d21d5154802"), 0, "fa166dae-13e0-43f0-a126-44dc917836a3", "user1@example.com", true, "John Doe", false, null, null, "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEPbIPcjkufTCjCdMx/lULkmHkr80OKED0A18qnfbZTdakZ/K9l4J4mtVMtw3KbnOug==", null, false, null, false, "user1@example.com" },
+                    { new Guid("bb29880d-16a7-4396-be96-b97d8d0e5dd4"), 0, "d4e02457-4a43-45b8-9469-34d9c2fec112", "user2@example.com", true, "Jane Smith", false, null, null, "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAED+3l/D1vwnBJd8Ydy1XE/nmfUX6dUQJjWlQb56FvAheLgYVDeuQY1a1fuL9Bs5hUA==", null, false, null, false, "user2@example.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -276,8 +276,8 @@ namespace HealthyTreats.Core.Migrations
                 columns: new[] { "Id", "TitleCategory" },
                 values: new object[,]
                 {
-                    { new Guid("b91456d5-b6cb-43d8-aad4-400eb491e8c9"), "Vegatarian" },
-                    { new Guid("ee2b48d6-a6e3-406e-9ad5-a80200396dc5"), "Vegan" }
+                    { new Guid("22095f81-2fa6-4e64-98fe-440d515d88bc"), "Vegan" },
+                    { new Guid("ebea2ab3-ef82-402d-a0d0-202043215f28"), "Vegatarian" }
                 });
 
             migrationBuilder.InsertData(
@@ -285,14 +285,14 @@ namespace HealthyTreats.Core.Migrations
                 columns: new[] { "Id", "Quantity", "Title", "Unit" },
                 values: new object[,]
                 {
-                    { new Guid("bdc5b4ae-fbd5-4a2c-a355-9e922487f59d"), 5f, "Vegan3", "Vegan6" },
-                    { new Guid("cf63aeba-78ad-4c2c-b3bc-c2333dde566a"), 5f, "Vegan1", "Vegan4" }
+                    { new Guid("29a7cb52-35f7-4970-b846-0aeda6ede385"), 5f, "Vegan3", "Vegan6" },
+                    { new Guid("c56d118f-8d03-4a46-878b-a30bb3518d6e"), 5f, "Vegan1", "Vegan4" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Recipes",
                 columns: new[] { "Id", "AuthorId", "CategoryId", "ClientId", "Description", "ImagePath", "IngredientId", "Instructons", "Name" },
-                values: new object[] { new Guid("8eff3244-350f-4d5e-acdf-a5740ca96909"), new Guid("ca240722-3987-43e6-b289-5934973af578"), new Guid("ee2b48d6-a6e3-406e-9ad5-a80200396dc5"), null, "Delicious chocolate cake recipe", "/img/projects/no_photo.jpg", new Guid("cf63aeba-78ad-4c2c-b3bc-c2333dde566a"), "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.", "Chocolate Cake" });
+                values: new object[] { new Guid("34bab5fa-03b0-4e12-9a67-2b054e10ebc2"), new Guid("77977cf5-b48f-4c83-a22b-6d21d5154802"), new Guid("22095f81-2fa6-4e64-98fe-440d515d88bc"), null, "Delicious chocolate cake recipe", "/img/recipes/no_photo.jpg", new Guid("c56d118f-8d03-4a46-878b-a30bb3518d6e"), "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.", "Chocolate Cake" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

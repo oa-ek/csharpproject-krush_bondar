@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace HealthyTreats.Repositories.Recipe
 {
-   
-        public interface IRecipeRepository : IRepository<HealthyTreats.Core.Entities.Recipe, Guid>
-        {
+
+    public interface IRecipeRepository : IRepository<HealthyTreats.Core.Entities.Recipe, Guid>
+    {
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
 
     }

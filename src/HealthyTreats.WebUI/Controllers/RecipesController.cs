@@ -1,12 +1,12 @@
 ﻿
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+﻿using HealthyTreats.Core.Context;
+using HealthyTreats.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.IO;
 using System.Linq;
