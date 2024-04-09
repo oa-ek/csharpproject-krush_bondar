@@ -267,8 +267,8 @@ namespace HealthyTreats.Core.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("77977cf5-b48f-4c83-a22b-6d21d5154802"), 0, "fa166dae-13e0-43f0-a126-44dc917836a3", "user1@example.com", true, "John Doe", false, null, null, "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEPbIPcjkufTCjCdMx/lULkmHkr80OKED0A18qnfbZTdakZ/K9l4J4mtVMtw3KbnOug==", null, false, null, false, "user1@example.com" },
-                    { new Guid("bb29880d-16a7-4396-be96-b97d8d0e5dd4"), 0, "d4e02457-4a43-45b8-9469-34d9c2fec112", "user2@example.com", true, "Jane Smith", false, null, null, "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAED+3l/D1vwnBJd8Ydy1XE/nmfUX6dUQJjWlQb56FvAheLgYVDeuQY1a1fuL9Bs5hUA==", null, false, null, false, "user2@example.com" }
+                    { new Guid("119db234-19b6-495a-a7ed-5397da740602"), 0, "7ce1d5a0-b383-4d59-bb77-f1e033527f17", "user2@example.com", true, "Jane Smith", false, null, null, "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEKxY+ahGdq0urtF00dNjvp/jzs9kuU56eqmEN23FiDPU2WdGRQ0mH5zHqi6lsYenNA==", null, false, null, false, "user2@example.com" },
+                    { new Guid("4309b0f3-b107-4db6-8628-b0f2dfe5057e"), 0, "2bc23599-c118-47e9-9bb4-ad54f8b495b5", "user1@example.com", true, "John Doe", false, null, null, "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEIuRMtgsV5GlX/tC+9sdJgxaXRBfSr2AClCiycoph78A94/4MgNrhVQCKHEb5qC9pA==", null, false, null, false, "user1@example.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -276,8 +276,8 @@ namespace HealthyTreats.Core.Migrations
                 columns: new[] { "Id", "TitleCategory" },
                 values: new object[,]
                 {
-                    { new Guid("22095f81-2fa6-4e64-98fe-440d515d88bc"), "Vegan" },
-                    { new Guid("ebea2ab3-ef82-402d-a0d0-202043215f28"), "Vegatarian" }
+                    { new Guid("6050ab0d-db4e-4ce5-8353-5c1e3ee34332"), "Vegan" },
+                    { new Guid("bda1d6fd-cef1-4ab7-84b7-119982270ca1"), "Vegatarian" }
                 });
 
             migrationBuilder.InsertData(
@@ -285,14 +285,14 @@ namespace HealthyTreats.Core.Migrations
                 columns: new[] { "Id", "Quantity", "Title", "Unit" },
                 values: new object[,]
                 {
-                    { new Guid("29a7cb52-35f7-4970-b846-0aeda6ede385"), 5f, "Vegan3", "Vegan6" },
-                    { new Guid("c56d118f-8d03-4a46-878b-a30bb3518d6e"), 5f, "Vegan1", "Vegan4" }
+                    { new Guid("21041108-71f6-420d-bf0b-828aa3cb5bbf"), 5f, "Vegan3", "Vegan6" },
+                    { new Guid("63360e23-6fc1-4c59-88ef-6fa0490d8bb4"), 5f, "Vegan1", "Vegan4" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Recipes",
                 columns: new[] { "Id", "AuthorId", "CategoryId", "ClientId", "Description", "ImagePath", "IngredientId", "Instructons", "Name" },
-                values: new object[] { new Guid("34bab5fa-03b0-4e12-9a67-2b054e10ebc2"), new Guid("77977cf5-b48f-4c83-a22b-6d21d5154802"), new Guid("22095f81-2fa6-4e64-98fe-440d515d88bc"), null, "Delicious chocolate cake recipe", "/img/recipes/no_photo.jpg", new Guid("c56d118f-8d03-4a46-878b-a30bb3518d6e"), "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.", "Chocolate Cake" });
+                values: new object[] { new Guid("cb075b2b-cdae-427c-ad87-3a5a2d4cae8c"), new Guid("4309b0f3-b107-4db6-8628-b0f2dfe5057e"), new Guid("6050ab0d-db4e-4ce5-8353-5c1e3ee34332"), null, "Delicious chocolate cake recipe", "/img/recipes/no_photo.jpg", new Guid("63360e23-6fc1-4c59-88ef-6fa0490d8bb4"), "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.", "Chocolate Cake" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
