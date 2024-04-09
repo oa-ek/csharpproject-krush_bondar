@@ -8,4 +8,7 @@
 4. Додати сonection string до appsettings.json.
 5. Перемістити DataContext до Core.
 6. Провести міграцію БД.
+7. Додати класи сутностей
+8. Написати репозиторії
+9. Написати Controllers
 
