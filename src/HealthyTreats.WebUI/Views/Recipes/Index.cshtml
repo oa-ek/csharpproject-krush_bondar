@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Healthy Treats";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a href="/Recipes/Create" class="btn btn-success float-end">Add a recipe</a>
+
+<h1>@ViewData["Title"]</h1>
+
+
+<div class="row">
+    @if (Model != null)
+    {
+        @foreach (var p in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="@p.ImagePath" alt="Зображення страви">
+                    <div class="card-body">
+                        <h5 class="card-title">@p.Name</h5>
+                        <p class="card-text">@p.Description</p>
+                        <div class="btn-group" role="group">
+                            <a href="/Recipes/Details/@p.Id" class="btn btn-primary"> Details </a>
+                            <a href="/Recipes/Edit/@p.Id" class="btn btn-warning">Edit</a>
+                            <a href="/Recipes/Delete/@p.Id" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Немає даних для відображення</p>
+    }
+</div>

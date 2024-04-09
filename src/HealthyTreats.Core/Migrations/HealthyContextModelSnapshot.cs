@@ -54,12 +54,12 @@ namespace HealthyTreats.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ee2b48d6-a6e3-406e-9ad5-a80200396dc5"),
+                            Id = new Guid("6050ab0d-db4e-4ce5-8353-5c1e3ee34332"),
                             TitleCategory = "Vegan"
                         },
                         new
                         {
-                            Id = new Guid("b91456d5-b6cb-43d8-aad4-400eb491e8c9"),
+                            Id = new Guid("bda1d6fd-cef1-4ab7-84b7-119982270ca1"),
                             TitleCategory = "Vegatarian"
                         });
                 });
@@ -88,14 +88,14 @@ namespace HealthyTreats.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cf63aeba-78ad-4c2c-b3bc-c2333dde566a"),
+                            Id = new Guid("63360e23-6fc1-4c59-88ef-6fa0490d8bb4"),
                             Quantity = 5f,
                             Title = "Vegan1",
                             Unit = "Vegan4"
                         },
                         new
                         {
-                            Id = new Guid("bdc5b4ae-fbd5-4a2c-a355-9e922487f59d"),
+                            Id = new Guid("21041108-71f6-420d-bf0b-828aa3cb5bbf"),
                             Quantity = 5f,
                             Title = "Vegan3",
                             Unit = "Vegan6"
@@ -143,12 +143,12 @@ namespace HealthyTreats.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8eff3244-350f-4d5e-acdf-a5740ca96909"),
-                            AuthorId = new Guid("ca240722-3987-43e6-b289-5934973af578"),
-                            CategoryId = new Guid("ee2b48d6-a6e3-406e-9ad5-a80200396dc5"),
+                            Id = new Guid("cb075b2b-cdae-427c-ad87-3a5a2d4cae8c"),
+                            AuthorId = new Guid("4309b0f3-b107-4db6-8628-b0f2dfe5057e"),
+                            CategoryId = new Guid("6050ab0d-db4e-4ce5-8353-5c1e3ee34332"),
                             Description = "Delicious chocolate cake recipe",
-                            ImagePath = "/img/projects/no_photo.jpg",
-                            IngredientId = new Guid("cf63aeba-78ad-4c2c-b3bc-c2333dde566a"),
+                            ImagePath = "/img/recipes/no_photo.jpg",
+                            IngredientId = new Guid("63360e23-6fc1-4c59-88ef-6fa0490d8bb4"),
                             Instructons = "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.",
                             Name = "Chocolate Cake"
                         });
@@ -225,30 +225,30 @@ namespace HealthyTreats.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ca240722-3987-43e6-b289-5934973af578"),
+                            Id = new Guid("4309b0f3-b107-4db6-8628-b0f2dfe5057e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f1cc618f-bdf2-4e1d-94d8-2dd2dc24818d",
+                            ConcurrencyStamp = "2bc23599-c118-47e9-9bb4-ad54f8b495b5",
                             Email = "user1@example.com",
                             EmailConfirmed = true,
                             FullName = "John Doe",
                             LockoutEnabled = false,
                             NormalizedUserName = "USER1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEN9T5Y9OLa31E/ng31eMBGfw04YbirYB44UrV6zts1yQsKt6lEm1onflLThuDIKnRg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIuRMtgsV5GlX/tC+9sdJgxaXRBfSr2AClCiycoph78A94/4MgNrhVQCKHEb5qC9pA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "user1@example.com"
                         },
                         new
                         {
-                            Id = new Guid("6b630bab-0360-4825-bafd-f59aa583cfe3"),
+                            Id = new Guid("119db234-19b6-495a-a7ed-5397da740602"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4d4600ba-bc15-4093-8653-d62f652c3fa1",
+                            ConcurrencyStamp = "7ce1d5a0-b383-4d59-bb77-f1e033527f17",
                             Email = "user2@example.com",
                             EmailConfirmed = true,
                             FullName = "Jane Smith",
                             LockoutEnabled = false,
                             NormalizedUserName = "USER2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMSuK00tDjl8GUIuyOv8Vqi6lhm1ROtwmkE+PXDgmiHN7be5P8yuG6k4nSRuycRjWg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKxY+ahGdq0urtF00dNjvp/jzs9kuU56eqmEN23FiDPU2WdGRQ0mH5zHqi6lsYenNA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "user2@example.com"

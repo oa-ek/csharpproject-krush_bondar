@@ -2,6 +2,7 @@ using HealthyTreats.Core.Context;
 using HealthyTreats.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using HealthyTreats.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
 	.AddEntityFrameworkStores<HealthyContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddRepositories();
 
 var app = builder.Build();
 
