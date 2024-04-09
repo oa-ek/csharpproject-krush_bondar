@@ -1,4 +1,5 @@
 ﻿using HealthyTreats.Core.Context;
+using HealthyTreats.Core.Entities;
 using HealthyTreats.Repositories.Comon;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +14,10 @@ namespace HealthyTreats.Repositories.Recipe
 
     {
         public RecipeRepository(HealthyContext ctx) : base(ctx) { }
+        public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
+        {
+            return await _ctx.Categorys.ToListAsync();
+        }
         public async Task<IEnumerable<HealthyTreats.Core.Entities.Recipe>> GetAllAsyncWithDetails()
         {
             return await _ctx.Recipes

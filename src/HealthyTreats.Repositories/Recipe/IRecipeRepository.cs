@@ -1,4 +1,5 @@
-﻿using HealthyTreats.Repositories.Comon;
+﻿using HealthyTreats.Core.Entities;
+using HealthyTreats.Repositories.Comon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace HealthyTreats.Repositories.Recipe
    
         public interface IRecipeRepository : IRepository<HealthyTreats.Core.Entities.Recipe, Guid>
         {
-            //ппрп
-        }
-    
+        Task<IEnumerable<Category>> GetAllCategoriesAsync();
+
+    }
+
 }
