@@ -18,6 +18,10 @@ namespace HealthyTreats.Repositories.Recipe
         {
             return await _ctx.Categorys.ToListAsync();
         }
+        public async Task<Category> GetCategoryAsync(Guid categoryId)
+        {
+            return await _ctx.Categorys.FindAsync(categoryId);
+        }
         public async Task<IEnumerable<HealthyTreats.Core.Entities.Recipe>> GetAllAsyncWithDetails()
         {
             return await _ctx.Recipes

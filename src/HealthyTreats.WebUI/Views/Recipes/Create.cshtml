@@ -1,10 +1,10 @@
 ﻿@using HealthyTreats.Core.Entities
 @model Recipe
 @{
-    var types = ViewBag.Category as List<SelectListItem>;
+    var categories = ViewBag.Categories as List<Category>; // Оновлено для відображення списку категорій
 }
 
-<h1>Новий рецепт</h1>
+<h1>New recipe</h1>
 
 <form asp-action="Create" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
@@ -27,14 +27,9 @@
         @Html.TextBoxFor(model => model.Instructons, new { @class = "form-control" })
         <span asp-validation-for="Instructons" class="text-danger"></span>
     </div>
-    <div class="mb-3">
-        <label asp-for="Ingredients">Інгредієнти</label>
-        <input asp-for="Ingredients" class="form-control" />
-        <span asp-validation-for="Ingredients" class="text-danger"></span>
-    </div>
+   
 
-    <button type="button" id="addIngredientBtn" class="btn btn-primary">Додати інгредієнт</button>
-
+    
     <ul id="ingredientList"></ul>
 
     <div class="form-group mt-3">
@@ -44,10 +39,47 @@
     </div>
 
     <div class="mb-3">
-        <select asp-for="CategoryId" asp-items="@(types)" id="x1" class="form-control">
-            <option value="0" selected="selected">- Оберіть категорію -</option>
-        </select>
-        <span asp-validation-for="CategoryId" class="text-danger"></span>
+        <label asp-for="Ingredients">Ingredient</label>
+        <div id="ingredientContainer">
+            <div class="ingredient">
+                <input type="text" name="Ingredients[0].Title" placeholder="Name ingredient">
+                <input type="number" name="Ingredients[0].Quantity" placeholder="Number">
+                <input type="text" name="Ingredients[0].Unit" placeholder="Unit">
+            </div>
+        </div>
+        <button type="button" id="addIngredientBtn" class="btn btn-primary">Add ingredient</button>
+
+        <span asp-validation-for="Ingredients" class="text-danger"></span>
+    </div>
+
+    
+
+    <!-- Список чекбоксів категорій -->
+    <div class="mb-3">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="DairyFree" value="1">
+            <label class="form-check-label" for="DairyFree">
+                Dairy free
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="Vegan" value="2">
+            <label class="form-check-label" for="Vegan">
+                Vegan
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="Vegetarian" value="3">
+            <label class="form-check-label" for="Vegetarian">
+                Vegetarian
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="GlutenFree" value="4">
+            <label class="form-check-label" for="GlutenFree">
+                Gluten free
+            </label>
+        </div>
     </div>
 
     <button class="btn btn-primary" type="submit">Зберегти</button>
@@ -57,4 +89,20 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+<script>
+        var ingredientCount = 1; // Лічильник для унікальних індексів полів
+
+        document.getElementById("addIngredientBtn").addEventListener("click", function() {
+            var container = document.getElementById("ingredientContainer");
+            var newIngredient = document.createElement("div");
+            newIngredient.classList.add("ingredient");
+            newIngredient.innerHTML = `
+    <input type="text" name="Ingredients[${ingredientCount}].Title" placeholder="Назва інгредієнту">
+    <input type="number" name="Ingredients[${ingredientCount}].Quantity" placeholder="Кількість">
+    <input type="text" name="Ingredients[${ingredientCount}].Unit" placeholder="Одиниця виміру">
+        `;
+        container.appendChild(newIngredient);
+        ingredientCount++;
+    });
+    </script>
 }

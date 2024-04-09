@@ -69,11 +69,20 @@ namespace HealthyTreats.Core.Context
             var category2 = new Category
             {
                 Id = Guid.NewGuid(),
+                TitleCategory = "Dairy free"
+            };
+            var category3 = new Category
+            {
+                Id = Guid.NewGuid(),
+                TitleCategory = "Gluten free"
+            };
+            var category4 = new Category
+            {
+                Id = Guid.NewGuid(),
                 TitleCategory = "Vegatarian"
             };
-
             builder.Entity<Category>()
-              .HasData(category, category2);
+              .HasData(category, category2, category3, category4);
 
             return categoryId;
         }
@@ -84,23 +93,63 @@ namespace HealthyTreats.Core.Context
             var ingredients = new Ingredient
             {
                 Id = ingredientsId,
-                Title = "Vegan1",
-                Quantity = 5,
-                Unit = "Vegan4"
+                Title = "almond flour",
+                Quantity = 1,
+                Unit = "cup"
 
             };
 
             var ingredients2 = new Ingredient
             {
                 Id = Guid.NewGuid(),
-                Title = "Vegan3",
-                Quantity = 5,
-                Unit = "Vegan6"
+                Title = "unsweetened cocoa powder",
+                Quantity = 0.5f,
+                Unit = "cup"
+
+            };
+            var ingredients3 = new Ingredient
+            {
+                Id = Guid.NewGuid(),
+                Title = "stevia ",
+                Quantity = 0.5f,
+                Unit = "cup"
+
+            };
+            var ingredients4 = new Ingredient
+            {
+                Id = Guid.NewGuid(),
+                Title = "baking powder",
+                Quantity = 0.5f,
+                Unit = "teaspoon"
+
+            };
+            var ingredients5 = new Ingredient
+            {
+                Id = Guid.NewGuid(),
+                Title = "salt",
+                Quantity = 0.2f,
+                Unit = "teaspoon"
+
+            };
+            var ingredients6 = new Ingredient
+            {
+                Id = Guid.NewGuid(),
+                Title = "eggs 3 pieces",
+                Quantity = 3,
+                Unit = "pieces"
+
+            };
+            var ingredients7 = new Ingredient
+            {
+                Id = Guid.NewGuid(),
+                Title = "almond milk ",
+                Quantity = 0.5f,
+                Unit = "cup"
 
             };
 
             builder.Entity<Ingredient>()
-              .HasData(ingredients, ingredients2);
+              .HasData(ingredients, ingredients2, ingredients3, ingredients4, ingredients5, ingredients6 ,ingredients7);
 
             return ingredientsId;
         }
@@ -115,8 +164,9 @@ namespace HealthyTreats.Core.Context
                 Description = "Delicious chocolate cake recipe",
                 Instructons = "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.",
                 AuthorId = userId,
-                CategoryId = categoryId,// Додаємо ідентифікатор категорії без проміжного класу
-                IngredientId = ingredientsId // Додаємо ідентифікатор категорії без проміжного класу
+                CategoryId = categoryId,
+                IngredientId = ingredientsId ,
+                 ImagePath  = "/img/recipes/no_photo.jpg"
             };
 
             // Додайте рецепт до контексту

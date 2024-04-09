@@ -1,0 +1,43 @@
+﻿@model HealthyTreats.Core.Entities.Recipe
+
+<h2>@Model.Name</h2>
+<p>@Model.Description</p>
+<p>@Model.Instructons</p>
+<img src="~/@Model.ImagePath" alt="Recipe Image">
+
+@if (Model.Categories.Any())
+{
+    <p>Category: @Model.Categories.First().TitleCategory</p> 
+}
+<p>
+    Ingredients:
+</p>
+<ul>
+    <li>
+        almond flour 1 cup 
+    </li>
+    <li>
+        unsweetened cocoa powder 0,5 cup
+    </li>
+    <li>
+        stevia 0,5 cup
+    </li>
+    <li>
+        baking powder 0,5 teaspoon
+    </li>
+    <li>
+        salt 0,2 teaspoon
+    </li>
+       
+    <li>
+        eggs 3 pieces
+    </li>
+    <li>
+        almond milk 0,5 cup
+    </li>
+</ul>
+    @foreach (var ingredient in Model.Ingredients)
+    {
+        <li>@ingredient.Title</li>
+    }
+</ul>
