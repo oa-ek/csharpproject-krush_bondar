@@ -14,7 +14,7 @@ namespace HealthyTreats.Core.Entities
         public string? Name { get; set; } = string.Empty;
         public string? Description { get; set; } = string.Empty;
         public string? Instructons { get; set; } = string.Empty;
-        public string? ImagePath { get; set; } = "/img/recipes/no_photo.jpg";
+        public string? ImagePath { get; set; } = "/img/recipes/";
         public User? Author { get; set; }
 
         [ForeignKey(nameof(Author))]

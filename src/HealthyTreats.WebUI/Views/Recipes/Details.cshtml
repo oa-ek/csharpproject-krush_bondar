@@ -3,7 +3,8 @@
 <h2>@Model.Name</h2>
 <p>@Model.Description</p>
 <p>@Model.Instructons</p>
-<img src="@Model.ImagePath" alt="Recipe Image"> 
+<img src="~/@Model.ImagePath" alt="Recipe Image">
+
 @if (Model.Categories.Any())
 {
     <p>Category: @Model.Categories.First().TitleCategory</p> 

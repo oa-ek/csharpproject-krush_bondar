@@ -165,7 +165,8 @@ namespace HealthyTreats.Core.Context
                 Instructons = "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.",
                 AuthorId = userId,
                 CategoryId = categoryId,
-                IngredientId = ingredientsId 
+                IngredientId = ingredientsId ,
+                 ImagePath  = "/img/recipes/no_photo.jpg"
             };
 
             // Додайте рецепт до контексту

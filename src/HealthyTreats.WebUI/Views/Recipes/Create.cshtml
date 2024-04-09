@@ -39,15 +39,15 @@
     </div>
 
     <div class="mb-3">
-        <label asp-for="Ingredients">Інгредієнти</label>
+        <label asp-for="Ingredients">Ingredient</label>
         <div id="ingredientContainer">
             <div class="ingredient">
-                <input type="text" name="Ingredients[0].Title" placeholder="Назва інгредієнту">
-                <input type="number" name="Ingredients[0].Quantity" placeholder="Кількість">
-                <input type="text" name="Ingredients[0].Unit" placeholder="Одиниця виміру">
+                <input type="text" name="Ingredients[0].Title" placeholder="Name ingredient">
+                <input type="number" name="Ingredients[0].Quantity" placeholder="Number">
+                <input type="text" name="Ingredients[0].Unit" placeholder="Unit">
             </div>
         </div>
-        <button type="button" id="addIngredientBtn" class="btn btn-primary">Додати інгредієнт</button>
+        <button type="button" id="addIngredientBtn" class="btn btn-primary">Add ingredient</button>
 
         <span asp-validation-for="Ingredients" class="text-danger"></span>
     </div>

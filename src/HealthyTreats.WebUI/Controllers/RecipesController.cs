@@ -48,6 +48,7 @@ namespace HealthyTreats.WebUI.Controllers
                 return NotFound();
             }
             return View(recipe);
+
         }
 
         public async Task<IActionResult> Create()
@@ -67,7 +68,7 @@ namespace HealthyTreats.WebUI.Controllers
                     string wwwRootPath = _webHostEnvironment.WebRootPath;
 
                     var fileExt = Path.GetExtension(model.ImageFile.FileName);
-                    var filePath = Path.Combine("/img/recipes/", $"{Guid.NewGuid()}{fileExt}");
+                    var filePath = Path.Combine("img", "recipes", $"{Guid.NewGuid()}{fileExt}");
                     string path = Path.Combine(wwwRootPath, filePath);
 
                     using (var fileStream = new FileStream(path, FileMode.Create))
