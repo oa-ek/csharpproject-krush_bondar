@@ -1,14 +1,25 @@
-﻿using HealthyTreats.Core.Entities;
+﻿using HealthyTreats.Core.Context;
+using HealthyTreats.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealthyTreats.WebUI.Controllers
 {
     public class RecipesController : Controller
     {
+        private readonly HealthyContext _context;
+
+        public RecipesController(HealthyContext context)
+        {
+            _context = context;
+        }
+
+        // GET: /Recipes/Index
         public IActionResult Index()
         {
-            return View();
+            var recipes = _context.Recipes.ToList();
+            return View(recipes);
         }
+
         // GET: /Recipes/Create
         public IActionResult Create()
         {
@@ -22,14 +33,16 @@ namespace HealthyTreats.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Додайте код для збереження нового рецепту в базу даних
-                // Після успішного збереження можна перенаправити користувача на іншу сторінку
-                return RedirectToAction("Index"); // Наприклад, перенаправлення на сторінку зі списком рецептів
+                // Add code to save the new recipe to the database
+                // After successful saving, you can redirect the user to another page
+                return RedirectToAction("Index"); // For example, redirect to the recipe list page
             }
             return View(recipe);
         }
 
-        // Інші методи контролера, які можливо у вас є
+        // Other controller methods you may have
     }
-    }
+
+
+}
 
