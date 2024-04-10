@@ -141,23 +141,25 @@ namespace HealthyTreats.WebUI.Controllers
         }
 
         // GET: ProjectsController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            return View();
+            var recipes = await _recipeRepository.GetAsync(id);
+            return View(recipes);
         }
 
         // POST: ProjectsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(Guid id, IFormCollection collection)
         {
             try
             {
+                await _recipeRepository.DeleteAsync(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return RedirectToAction("Delete", new {id = id});
             }
         }
     }
