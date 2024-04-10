@@ -17,8 +17,10 @@ using HealthyTreats.Core.Entities;
 
 namespace HealthyTreats.WebUI.Controllers
 {
+
     public class RecipesController : Controller
     {
+
         private readonly IRecipeRepository _recipeRepository;
         private readonly IUserRepository _userRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -33,7 +35,7 @@ namespace HealthyTreats.WebUI.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-       
+
         public async Task<IActionResult> Index()
         {
             var recipes = await _recipeRepository.GetAllAsync();
@@ -120,6 +122,12 @@ namespace HealthyTreats.WebUI.Controllers
         }
 
 
+
+
+
+
+
+
         public async Task<IActionResult> Edit(Guid id)
         {
             var recipe = await _recipeRepository.GetAsync(id);
@@ -127,57 +135,43 @@ namespace HealthyTreats.WebUI.Controllers
             {
                 return NotFound();
             }
-
-            ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
+            ViewBag.Categories = await _recipeRepository.GetAllCategoriesAsync();
             return View(recipe);
         }
 
-        // POST: RecipesController/Edit/5
+        // POST: Recipes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, Recipe model, List<Guid> SelectedCategories, List<Ingredient> Ingredients)
+        public async Task<IActionResult> Edit(Guid id, Recipe model)
         {
             if (id != model.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    // Збереження обраних категорій
-                    model.Categories.Clear();
-                    foreach (var categoryId in SelectedCategories)
-                    {
-                        var category = await _recipeRepository.GetCategoryAsync(categoryId);
-                        if (category != null)
-                        {
-                            model.Categories.Add(category);
-                        }
-                    }
-
-                    // Збереження інгредієнтів
-                    model.Ingredients.Clear();
-                    foreach (var ingredient in Ingredients)
-                    {
-                        model.Ingredients.Add(ingredient);
-                    }
-
-                    // Оновлення рецепту
                     await _recipeRepository.UpdateAsync(model);
-
-                    return RedirectToAction(nameof(Index));
                 }
                 catch (Exception)
                 {
-                    return RedirectToAction(nameof(Index)); // Можна обробити помилку в якийсь специфічний спосіб
+                    return RedirectToAction(nameof(Index));
                 }
+                return RedirectToAction(nameof(Index));
             }
-
-            ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
             return View(model);
         }
+
+
+
+
+
+
+
+
+
 
 
         // GET: ProjectsController/Delete/5

@@ -10,7 +10,7 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
 
-    @Html.HiddenFor(model=>model.Id)
+    @Html.HiddenFor(model => model.Id)
 
     <div class="mb-3">
         @Html.DisplayNameFor(model => model.Name)
@@ -99,10 +99,10 @@
             var newIngredient = document.createElement("div");
             newIngredient.classList.add("ingredient");
             newIngredient.innerHTML = `
-            <input type="text" name="Ingredients[${ingredientCount}].Title" placeholder="Назва інгредієнту">
-            <input type="number" name="Ingredients[${ingredientCount}].Quantity" placeholder="Кількість">
-            <input type="text" name="Ingredients[${ingredientCount}].Unit" placeholder="Одиниця виміру">
-                `;
+                    <input type="text" name="Ingredients[${ingredientCount}].Title" placeholder="Назва інгредієнту">
+                    <input type="number" name="Ingredients[${ingredientCount}].Quantity" placeholder="Кількість">
+                    <input type="text" name="Ingredients[${ingredientCount}].Unit" placeholder="Одиниця виміру">
+                        `;
             container.appendChild(newIngredient);
             ingredientCount++;
         });
