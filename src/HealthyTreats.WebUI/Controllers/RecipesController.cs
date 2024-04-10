@@ -17,8 +17,10 @@ using HealthyTreats.Core.Entities;
 
 namespace HealthyTreats.WebUI.Controllers
 {
+
     public class RecipesController : Controller
     {
+
         private readonly IRecipeRepository _recipeRepository;
         private readonly IUserRepository _userRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -33,7 +35,7 @@ namespace HealthyTreats.WebUI.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-       
+
         public async Task<IActionResult> Index()
         {
             var recipes = await _recipeRepository.GetAllAsync();
@@ -120,25 +122,57 @@ namespace HealthyTreats.WebUI.Controllers
         }
 
 
-        // GET: ProjectsController/Edit/5
-        public ActionResult Edit(int id)
+
+
+
+
+
+
+        public async Task<IActionResult> Edit(Guid id)
         {
-            return View();
+            var recipe = await _recipeRepository.GetAsync(id);
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Categories = await _recipeRepository.GetAllCategoriesAsync();
+            return View(recipe);
         }
-        // POST: ProjectsController/Edit/5
+
+        // POST: Recipes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(Guid id, Recipe model)
         {
-            try
+            if (id != model.Id)
             {
+                return BadRequest();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _recipeRepository.UpdateAsync(model);
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(model);
         }
+
+
+
+
+
+
+
+
+
+
 
         // GET: ProjectsController/Delete/5
         public async Task<IActionResult> Delete(Guid id)

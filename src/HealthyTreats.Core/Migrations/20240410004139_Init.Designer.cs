@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthyTreats.Core.Migrations
 {
     [DbContext(typeof(HealthyContext))]
-    [Migration("20240409230103_Init")]
+    [Migration("20240410004139_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -57,22 +57,22 @@ namespace HealthyTreats.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9c614a72-d5a3-43e7-ae39-53d817651d1f"),
+                            Id = new Guid("78b81fe6-13b1-45df-ba68-60bdadc848c6"),
                             TitleCategory = "Vegan"
                         },
                         new
                         {
-                            Id = new Guid("d16e8c69-f0a6-4b25-b5db-7338620ab917"),
+                            Id = new Guid("99d7f1d5-313f-4250-81a3-2d719f24423f"),
                             TitleCategory = "Dairy free"
                         },
                         new
                         {
-                            Id = new Guid("f543173d-499b-4119-8efc-2674a04d2888"),
+                            Id = new Guid("47277fae-1647-472d-94f0-be1bd0e3a6ac"),
                             TitleCategory = "Gluten free"
                         },
                         new
                         {
-                            Id = new Guid("993a5d2f-e7a7-4969-bf83-a5841c7b6788"),
+                            Id = new Guid("5e652052-bf22-42af-84b1-98c67454e8b2"),
                             TitleCategory = "Vegatarian"
                         });
                 });
@@ -101,49 +101,49 @@ namespace HealthyTreats.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8bd2591b-23bd-4177-8002-930ae658d382"),
+                            Id = new Guid("44bd6bc0-7980-4150-934a-54f0e2c47282"),
                             Quantity = 1f,
                             Title = "almond flour",
                             Unit = "cup"
                         },
                         new
                         {
-                            Id = new Guid("94214e5b-633b-49f5-9dfc-fe12413bd7c9"),
+                            Id = new Guid("1711a2a4-7407-4c26-8505-0314ee1cdbd3"),
                             Quantity = 0.5f,
                             Title = "unsweetened cocoa powder",
                             Unit = "cup"
                         },
                         new
                         {
-                            Id = new Guid("2fce79db-de5e-49d1-a4b4-770f94360f5a"),
+                            Id = new Guid("9d9191f6-610f-4166-9ccf-c96d6c3d467b"),
                             Quantity = 0.5f,
                             Title = "stevia ",
                             Unit = "cup"
                         },
                         new
                         {
-                            Id = new Guid("5eca529b-1b29-4133-a8e3-f052c4793e9a"),
+                            Id = new Guid("d9bf0999-9aa4-43e1-9d35-8a33e679cf29"),
                             Quantity = 0.5f,
                             Title = "baking powder",
                             Unit = "teaspoon"
                         },
                         new
                         {
-                            Id = new Guid("d6cebc56-7f39-41f8-a48d-977ced353a29"),
+                            Id = new Guid("dcd29382-ed1d-47f6-b5cc-3418f675e173"),
                             Quantity = 0.2f,
                             Title = "salt",
                             Unit = "teaspoon"
                         },
                         new
                         {
-                            Id = new Guid("b6c0107e-5dc2-495d-8c7d-a0851e585837"),
+                            Id = new Guid("87721a4c-b420-492c-8a9a-6ff76993927f"),
                             Quantity = 3f,
                             Title = "eggs 3 pieces",
                             Unit = "pieces"
                         },
                         new
                         {
-                            Id = new Guid("b72cb016-387b-4b60-9dfe-c8ce5a873600"),
+                            Id = new Guid("4bce46f4-9809-456f-8a82-7353f6f924b6"),
                             Quantity = 0.5f,
                             Title = "almond milk ",
                             Unit = "cup"
@@ -191,12 +191,12 @@ namespace HealthyTreats.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ec37e7f9-77b8-47b0-81f8-9011ad5772ea"),
-                            AuthorId = new Guid("d837f32a-84c5-468d-bd74-0d810395acdb"),
-                            CategoryId = new Guid("9c614a72-d5a3-43e7-ae39-53d817651d1f"),
+                            Id = new Guid("ec37e83e-afcf-41d9-8a36-2e4abf08dfa3"),
+                            AuthorId = new Guid("f48c4e29-4871-4507-bcbd-81f00b8e8704"),
+                            CategoryId = new Guid("78b81fe6-13b1-45df-ba68-60bdadc848c6"),
                             Description = "Delicious chocolate cake recipe",
                             ImagePath = "/img/recipes/no_photo.jpg",
-                            IngredientId = new Guid("8bd2591b-23bd-4177-8002-930ae658d382"),
+                            IngredientId = new Guid("44bd6bc0-7980-4150-934a-54f0e2c47282"),
                             Instructons = "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.",
                             Name = "Chocolate Cake"
                         });
@@ -273,30 +273,30 @@ namespace HealthyTreats.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d837f32a-84c5-468d-bd74-0d810395acdb"),
+                            Id = new Guid("f48c4e29-4871-4507-bcbd-81f00b8e8704"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1013a8eb-ecd8-4269-845e-25cfb459a2fc",
+                            ConcurrencyStamp = "183c402c-1b70-4193-af2f-ec5a4adff3b2",
                             Email = "user1@example.com",
                             EmailConfirmed = true,
                             FullName = "John Doe",
                             LockoutEnabled = false,
                             NormalizedUserName = "USER1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEARl3rilr+9HONuvw8tIdh+7u751ZgWs4X5fSB/G/6ZKQdqbL5HdMi/cJ7zsD7lhrg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMi6B1w8I1vtTeA2bHn1E18Hl/UQ77TGghAy430iRbGhsM4SVTLjWiM0WQzoKuONMw==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "user1@example.com"
                         },
                         new
                         {
-                            Id = new Guid("2e303955-5204-43e2-9157-dd431245b13c"),
+                            Id = new Guid("07fedcf3-b71d-4d93-894b-e5c770e9be44"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aee37349-f98d-4d2f-a17e-fa42ebe3cd1d",
+                            ConcurrencyStamp = "f1063118-7f27-458a-ac48-8fad17e15ba2",
                             Email = "user2@example.com",
                             EmailConfirmed = true,
                             FullName = "Jane Smith",
                             LockoutEnabled = false,
                             NormalizedUserName = "USER2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI+4a3zThuOYljFfkMFuv0VcATley3uo4IVMLu94Nl/Y1r3ZNt1IiwQWPJpVp0h3Zw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEND22WElDoQCvs8ayX27Lg6JqfBd1AleKxLKEc1HXd4cIX9jXI/UW/FWCp3Lacg3fg==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "user2@example.com"
