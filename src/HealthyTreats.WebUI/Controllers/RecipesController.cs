@@ -120,25 +120,65 @@ namespace HealthyTreats.WebUI.Controllers
         }
 
 
-        // GET: ProjectsController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(Guid id)
         {
-            return View();
+            var recipe = await _recipeRepository.GetAsync(id);
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
+            return View(recipe);
         }
-        // POST: ProjectsController/Edit/5
+
+        // POST: RecipesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(Guid id, Recipe model, List<Guid> SelectedCategories, List<Ingredient> Ingredients)
         {
-            try
+            if (id != model.Id)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
+
+            if (ModelState.IsValid)
             {
-                return View();
+                try
+                {
+                    // Збереження обраних категорій
+                    model.Categories.Clear();
+                    foreach (var categoryId in SelectedCategories)
+                    {
+                        var category = await _recipeRepository.GetCategoryAsync(categoryId);
+                        if (category != null)
+                        {
+                            model.Categories.Add(category);
+                        }
+                    }
+
+                    // Збереження інгредієнтів
+                    model.Ingredients.Clear();
+                    foreach (var ingredient in Ingredients)
+                    {
+                        model.Ingredients.Add(ingredient);
+                    }
+
+                    // Оновлення рецепту
+                    await _recipeRepository.UpdateAsync(model);
+
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction(nameof(Index)); // Можна обробити помилку в якийсь специфічний спосіб
+                }
             }
+
+            ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
+            return View(model);
         }
+
 
         // GET: ProjectsController/Delete/5
         public ActionResult Delete(int id)
