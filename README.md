@@ -16,4 +16,6 @@
 12. Add Recipe
 13. Detalies
 14. Delete
+15. Edit
+16. Написати звіт
 
