@@ -169,11 +169,6 @@ namespace HealthyTreats.WebUI.Controllers
 
 
 
-
-
-
-
-
         // GET: ProjectsController/Delete/5
         public async Task<IActionResult> Delete(Guid id)
         {
