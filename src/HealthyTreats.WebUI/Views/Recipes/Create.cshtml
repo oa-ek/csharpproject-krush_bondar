@@ -2,6 +2,7 @@
 @model Recipe
 @{
     var categories = ViewBag.Categories as List<Category>; // Оновлено для відображення списку категорій
+   
 }
 
 <h1>New recipe</h1>
@@ -27,8 +28,11 @@
         @Html.TextBoxFor(model => model.Instructons, new { @class = "form-control" })
         <span asp-validation-for="Instructons" class="text-danger"></span>
     </div>
-   
 
+    <!--**************** -->
+   
+    
+    <!-- ***************** -->
     
     <ul id="ingredientList"></ul>
 
@@ -38,6 +42,7 @@
         <span asp-validation-for="ImageFile" class="text-danger"></span>
     </div>
 
+    <!-- --------------- -->
     <div class="mb-3">
         <label asp-for="Ingredients">Ingredient</label>
         <div id="ingredientContainer">

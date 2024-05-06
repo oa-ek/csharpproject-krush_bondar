@@ -1,0 +1,21 @@
+﻿@model HealthyTreats.Core.Entities.Category
+
+@{
+    ViewData["Title"] = "Create Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>New Category</h1>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="mb-3">
+        <label asp-for="TitleCategory" class="form-label"></label>
+        <input asp-for="TitleCategory" class="form-control" />
+        <span asp-validation-for="TitleCategory" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Додати категорію</button>
+</form>

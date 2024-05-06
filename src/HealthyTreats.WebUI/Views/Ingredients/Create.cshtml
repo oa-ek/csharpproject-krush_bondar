@@ -1,0 +1,34 @@
+﻿@using HealthyTreats.Core.Entities
+
+@model Ingredient
+@{
+  
+}
+
+<h1>New  ingredients</h1>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="mb-3">
+        @Html.DisplayNameFor(model => model.Title)
+        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        @Html.DisplayNameFor(model => model.Quantity)
+        @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control" })
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        @Html.DisplayNameFor(model => model.Unit)
+        @Html.TextBoxFor(model => model.Unit, new { @class = "form-control" })
+        <span asp-validation-for="Unit" class="text-danger"></span>
+    </div>
+
+    
+    <button class="btn btn-primary" type="submit">Додати інгредієнт</button>
+</form>

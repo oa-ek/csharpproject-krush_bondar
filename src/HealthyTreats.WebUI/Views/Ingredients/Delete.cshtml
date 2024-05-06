@@ -1,0 +1,14 @@
+﻿
+@model HealthyTreats.Core.Entities.Ingredient
+@{
+    ViewData["Title"] = "Delete Ingredient";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Are you sure you want to delete the ingredient: @Model.Title?</p>
+
+<form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
+    @Html.AntiForgeryToken()
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

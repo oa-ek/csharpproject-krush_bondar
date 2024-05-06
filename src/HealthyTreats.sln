@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthyTreats.Core", "HealthyTreats.Core\HealthyTreats.Core.csproj", "{DFD69467-EB9E-4788-91CC-C646EE045EDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthyTreats.Core", "HealthyTreats.Core\HealthyTreats.Core.csproj", "{DFD69467-EB9E-4788-91CC-C646EE045EDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthyTreats.Repositories", "HealthyTreats.Repositories\HealthyTreats.Repositories.csproj", "{05C9D1B0-7654-45C5-9E49-2002933EDDC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthyTreats.Repositories", "HealthyTreats.Repositories\HealthyTreats.Repositories.csproj", "{05C9D1B0-7654-45C5-9E49-2002933EDDC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthyTreats.WebUI", "HealthyTreats.WebUI\HealthyTreats.WebUI.csproj", "{5F6F985D-D2E0-488E-8131-EB3A275FE943}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthyTreats.WebUI", "HealthyTreats.WebUI\HealthyTreats.WebUI.csproj", "{5F6F985D-D2E0-488E-8131-EB3A275FE943}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

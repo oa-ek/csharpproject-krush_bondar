@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using HealthyTreats.Repositories.Recipe;
 using HealthyTreats.Repositories.User;
 using HealthyTreats.Core.Entities;
+using HealthyTreats.Repositories.Comon;
 
 namespace HealthyTreats.WebUI.Controllers
 {
@@ -24,6 +25,7 @@ namespace HealthyTreats.WebUI.Controllers
         private readonly IRecipeRepository _recipeRepository;
         private readonly IUserRepository _userRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
+       
 
         public RecipesController(
             IRecipeRepository recipeRepository,
@@ -33,8 +35,10 @@ namespace HealthyTreats.WebUI.Controllers
             _recipeRepository = recipeRepository;
             _userRepository = userRepository;
             _webHostEnvironment = webHostEnvironment;
+           
         }
 
+        
 
         public async Task<IActionResult> Index()
         {
@@ -55,6 +59,7 @@ namespace HealthyTreats.WebUI.Controllers
 
         public async Task<IActionResult> Create()
         {
+           
             ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
             return View(new Recipe());
         }
@@ -65,6 +70,8 @@ namespace HealthyTreats.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
+
+
                 if (model.ImageFile != null)
                 {
                     string wwwRootPath = _webHostEnvironment.WebRootPath;
@@ -85,7 +92,7 @@ namespace HealthyTreats.WebUI.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-
+           
             ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
             return View(model);
         }
@@ -120,10 +127,6 @@ namespace HealthyTreats.WebUI.Controllers
             ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
             return View(model);
         }
-
-
-
-
 
 
 
@@ -191,6 +194,7 @@ namespace HealthyTreats.WebUI.Controllers
                 return RedirectToAction("Delete", new {id = id});
             }
         }
+
     }
 }
 
