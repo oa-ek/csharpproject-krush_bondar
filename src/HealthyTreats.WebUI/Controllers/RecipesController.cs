@@ -1,7 +1,6 @@
-﻿
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-﻿using HealthyTreats.Core.Context;
+using HealthyTreats.Core.Context;
 using HealthyTreats.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,7 +24,7 @@ namespace HealthyTreats.WebUI.Controllers
         private readonly IRecipeRepository _recipeRepository;
         private readonly IUserRepository _userRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
-       
+
 
         public RecipesController(
             IRecipeRepository recipeRepository,
@@ -35,10 +34,10 @@ namespace HealthyTreats.WebUI.Controllers
             _recipeRepository = recipeRepository;
             _userRepository = userRepository;
             _webHostEnvironment = webHostEnvironment;
-           
+
         }
 
-        
+
 
         public async Task<IActionResult> Index()
         {
@@ -53,13 +52,20 @@ namespace HealthyTreats.WebUI.Controllers
             {
                 return NotFound();
             }
-            return View(recipe);
 
+            // Отримати інгредієнти для цього рецепту
+            var ingredients = recipe.Ingredients;
+
+            // Передати рецепт і його інгредієнти в представлення
+            ViewData["Ingredients"] = ingredients;
+
+            return View(recipe);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
-           
+
             ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
             return View(new Recipe());
         }
@@ -92,7 +98,7 @@ namespace HealthyTreats.WebUI.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-           
+
             ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
             return View(model);
         }
@@ -191,10 +197,9 @@ namespace HealthyTreats.WebUI.Controllers
             }
             catch
             {
-                return RedirectToAction("Delete", new {id = id});
+                return RedirectToAction("Delete", new { id = id });
             }
         }
 
     }
 }
-

@@ -30,14 +30,7 @@ namespace HealthyTreats.Core.Entities
         public IFormFile? ImageFile { get; set; }
 
 
-        [ForeignKey(nameof(CategoryId))]
-        public Guid? CategoryId { get; set; }
-
-
-        [ForeignKey(nameof(IngredientId))]
-        public Guid? IngredientId { get; set; }
-
-        public virtual ICollection<Category> Categories { get; set; } = new HashSet<Category>();
-        public virtual ICollection<Ingredient> Ingredients { get; set; } = new HashSet<Ingredient>();
+        public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
+        public virtual ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
     }
 }

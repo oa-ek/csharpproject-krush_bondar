@@ -13,6 +13,6 @@ namespace HealthyTreats.Core.Entities
 
 
 
-        public virtual ICollection<Recipe> Recipes { get; set; } = new HashSet<Recipe>();
-	}
+        public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
+    }
 }

@@ -30,6 +30,12 @@ namespace HealthyTreats.Repositories.Recipe
                 .ToListAsync();
         }
 
+        public async Task<HealthyTreats.Core.Entities.Recipe> GetAsync(Guid id)
+        {
+            return await _ctx.Recipes
+                .Include(r => r.Ingredients) // Завантаження інгредієнтів
+                .FirstOrDefaultAsync(r => r.Id == id);
+        }
 
     }
 }
