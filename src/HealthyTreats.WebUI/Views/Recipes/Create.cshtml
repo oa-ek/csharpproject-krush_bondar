@@ -2,7 +2,6 @@
 @model Recipe
 @{
     var categories = ViewBag.Categories as List<Category>; // Оновлено для відображення списку категорій
-   
 }
 
 <h1>New recipe</h1>
@@ -22,18 +21,13 @@
         @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
-    
+
     <div class="mb-3">
         @Html.DisplayNameFor(model => model.Instructons)
         @Html.TextBoxFor(model => model.Instructons, new { @class = "form-control" })
         <span asp-validation-for="Instructons" class="text-danger"></span>
     </div>
 
-    <!--**************** -->
-   
-    
-    <!-- ***************** -->
-    
     <ul id="ingredientList"></ul>
 
     <div class="form-group mt-3">
@@ -42,24 +36,25 @@
         <span asp-validation-for="ImageFile" class="text-danger"></span>
     </div>
 
-    <!-- --------------- -->
     <div class="mb-3">
         <label asp-for="Ingredients">Ingredient</label>
         <div id="ingredientContainer">
             <div class="ingredient">
                 <input type="text" name="Ingredients[0].Title" placeholder="Name ingredient">
-                <input type="number" name="Ingredients[0].Quantity" placeholder="Number">
-                <input type="text" name="Ingredients[0].Unit" placeholder="Unit">
+                <input type="number" name="Ingredients[0].Quantity" placeholder="Quantity">
+                <select name="Ingredients[0].Unit" class="form-control">
+                    <option value="g">g</option>
+                    <option value="ml">ml</option>
+                    <option value="pieces">pieces</option>
+                    <option value="teaspoon">teaspoon</option>
+                    <option value="tablespoon">tablespoon</option>
+                </select>
             </div>
         </div>
         <button type="button" id="addIngredientBtn" class="btn btn-primary">Add ingredient</button>
-
         <span asp-validation-for="Ingredients" class="text-danger"></span>
     </div>
 
-    
-
-    <!-- Список чекбоксів категорій -->
     <div class="mb-3">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" name="DairyFree" value="1">
@@ -87,27 +82,31 @@
         </div>
     </div>
 
-    <button class="btn btn-primary" type="submit">Зберегти</button>
+    <button class="btn btn-primary" type="submit">Save</button>
 </form>
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-<script>
-        var ingredientCount = 1; // Лічильник для унікальних індексів полів
-
-        document.getElementById("addIngredientBtn").addEventListener("click", function() {
+    <script>
+        var ingredientCount = 1;
+        document.getElementById("addIngredientBtn").addEventListener("click", function () {
             var container = document.getElementById("ingredientContainer");
             var newIngredient = document.createElement("div");
             newIngredient.classList.add("ingredient");
             newIngredient.innerHTML = `
-    <input type="text" name="Ingredients[${ingredientCount}].Title" placeholder="Назва інгредієнту">
-    <input type="number" name="Ingredients[${ingredientCount}].Quantity" placeholder="Кількість">
-    <input type="text" name="Ingredients[${ingredientCount}].Unit" placeholder="Одиниця виміру">
-        `;
-        container.appendChild(newIngredient);
-        ingredientCount++;
-    });
+                        <input type="text" name="Ingredients[${ingredientCount}].Title" placeholder="Name ingredient">
+                        <input type="number" name="Ingredients[${ingredientCount}].Quantity" placeholder="Quantity">
+                        <select name="Ingredients[${ingredientCount}].Unit" class="form-control">
+                            <option value="g">g</option>
+                            <option value="ml">ml</option>
+                            <option value="pieces">pieces</option>
+                            <option value="teaspoon">teaspoon</option>
+                            <option value="tablespoon">tablespoon</option>
+                        </select>
+                    `;
+            container.appendChild(newIngredient);
+            ingredientCount++;
+        });
     </script>
 }

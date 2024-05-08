@@ -4,34 +4,33 @@ using System.Diagnostics;
 using HealthyTreats.Repositories.Comon;
 using HealthyTreats.Core.Entities;
 using Microsoft.CodeAnalysis;
+using HealthyTreats.Repositories.Recipe;
 
 namespace HealthyTreats.WebUI.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly ILogger<HomeController> _logger;
-        private readonly IRepository<Recipe, Guid> repository;
-        public HomeController(ILogger<HomeController> logger,
-            IRepository<Recipe, Guid> repository)
+        private readonly IRecipeRepository _recipeRepository;
+
+        public HomeController(IRecipeRepository recipeRepository)
         {
-			_logger = logger;
-            this.repository = repository;
+            _recipeRepository = recipeRepository;
         }
 
-		public IActionResult Index()
-		{
-			return View(repository.GetAllAsync());
+        public async Task<IActionResult> Index()
+        {
+            var recipes = await _recipeRepository.GetAllAsync();
+            return View(recipes);
         }
 
-		public IActionResult Privacy()
-		{
-			return View();
-		}
-
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-		}
-	}
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var recipe = await _recipeRepository.GetAsync(id);
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+            return View(recipe);
+        }
+    }
 }

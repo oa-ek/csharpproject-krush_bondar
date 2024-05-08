@@ -102,5 +102,7 @@ namespace HealthyTreats.WebUI.Controllers
             await _ingredientRepository.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
+
+       
     }
 }

@@ -30,6 +30,9 @@ namespace HealthyTreats.Repositories.Recipe
                 .ToListAsync();
         }
 
-
+        public async Task<List<Ingredient>> GetAllIngredientsAsync()
+        {
+            return await _ctx.Ingredients.ToListAsync();
+        }
     }
 }
