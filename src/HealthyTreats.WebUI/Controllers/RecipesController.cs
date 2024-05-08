@@ -11,7 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HealthyTreats.Repositories.Recipe;
-using HealthyTreats.Repositories.User;
+using HealthyTreats.Repositories.Users;
 using HealthyTreats.Core.Entities;
 using HealthyTreats.Repositories.Comon;
 
@@ -22,13 +22,13 @@ namespace HealthyTreats.WebUI.Controllers
     {
 
         private readonly IRecipeRepository _recipeRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IUsersRepository _userRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
 
         public RecipesController(
             IRecipeRepository recipeRepository,
-            IUserRepository userRepository,
+            IUsersRepository userRepository,
             IWebHostEnvironment webHostEnvironment)
         {
             _recipeRepository = recipeRepository;
@@ -45,6 +45,16 @@ namespace HealthyTreats.WebUI.Controllers
             return View(recipes);
         }
 
+        /* public async Task<IActionResult> Details(Guid id)
+         {
+             var recipe = await _recipeRepository.GetAsync(id);
+             if (recipe == null)
+             {
+                 return NotFound();
+             }
+             return View(recipe);
+
+         }*/
         public async Task<IActionResult> Details(Guid id)
         {
             var recipe = await _recipeRepository.GetAsync(id);
@@ -61,6 +71,7 @@ namespace HealthyTreats.WebUI.Controllers
 
             return View(recipe);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Create()
