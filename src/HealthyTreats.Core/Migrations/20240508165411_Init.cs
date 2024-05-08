@@ -263,43 +263,31 @@ namespace HealthyTreats.Core.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { new Guid("03e89f63-b436-4879-b17a-ff428ad1327a"), "03e89f63-b436-4879-b17a-ff428ad1327a", "Admin", "ADMIN" },
+                    { new Guid("dc8b81be-43e6-4e67-ab89-6e665267f4b3"), "dc8b81be-43e6-4e67-ab89-6e665267f4b3", "User", "USER" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("07fedcf3-b71d-4d93-894b-e5c770e9be44"), 0, "f1063118-7f27-458a-ac48-8fad17e15ba2", "user2@example.com", true, "Jane Smith", false, null, null, "USER2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEND22WElDoQCvs8ayX27Lg6JqfBd1AleKxLKEc1HXd4cIX9jXI/UW/FWCp3Lacg3fg==", null, false, null, false, "user2@example.com" },
-                    { new Guid("f48c4e29-4871-4507-bcbd-81f00b8e8704"), 0, "183c402c-1b70-4193-af2f-ec5a4adff3b2", "user1@example.com", true, "John Doe", false, null, null, "USER1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEMi6B1w8I1vtTeA2bHn1E18Hl/UQ77TGghAy430iRbGhsM4SVTLjWiM0WQzoKuONMw==", null, false, null, false, "user1@example.com" }
+                    { new Guid("0ef83fb5-41ab-4175-91da-8fba7b861f51"), 0, "52741e5a-0af6-4988-bce1-2e4394ceff1d", "user@example.com", true, "User", false, null, "USER@EXAMPLE.COM", "USER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEOxJIpiEN74D3dygc6sJCVPMFnR9w6+nvJTqYWsPB0sf/gQ78/k/0y+6TYKYccgfXw==", null, false, "8a1fdbab-e30b-4fbc-b72d-699fcb542683", false, "user@example.com" },
+                    { new Guid("94b4a939-11a6-474f-8bb7-721a2763c1cf"), 0, "174e479e-b112-4c43-b94f-430d2d6ee769", "admin@example.com", true, "Admin", false, null, "ADMIN@EXAMPLE.COM", "ADMIN@EXAMPLE.COM", "AQAAAAIAAYagAAAAEI/ijkHCJAIOwBkXDa1f4FXNZJM0gLOg5ykQongfYos2xo5HQxMGZSC+spdxJE47Mg==", null, false, "9f7085ed-5522-4761-b262-87974a43e484", false, "admin@example.com" }
                 });
 
             migrationBuilder.InsertData(
-                table: "Categorys",
-                columns: new[] { "Id", "TitleCategory" },
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("47277fae-1647-472d-94f0-be1bd0e3a6ac"), "Gluten free" },
-                    { new Guid("5e652052-bf22-42af-84b1-98c67454e8b2"), "Vegatarian" },
-                    { new Guid("78b81fe6-13b1-45df-ba68-60bdadc848c6"), "Vegan" },
-                    { new Guid("99d7f1d5-313f-4250-81a3-2d719f24423f"), "Dairy free" }
+                    { new Guid("dc8b81be-43e6-4e67-ab89-6e665267f4b3"), new Guid("0ef83fb5-41ab-4175-91da-8fba7b861f51") },
+                    { new Guid("03e89f63-b436-4879-b17a-ff428ad1327a"), new Guid("94b4a939-11a6-474f-8bb7-721a2763c1cf") }
                 });
-
-            migrationBuilder.InsertData(
-                table: "Ingredients",
-                columns: new[] { "Id", "Quantity", "Title", "Unit" },
-                values: new object[,]
-                {
-                    { new Guid("1711a2a4-7407-4c26-8505-0314ee1cdbd3"), 0.5f, "unsweetened cocoa powder", "cup" },
-                    { new Guid("44bd6bc0-7980-4150-934a-54f0e2c47282"), 1f, "almond flour", "cup" },
-                    { new Guid("4bce46f4-9809-456f-8a82-7353f6f924b6"), 0.5f, "almond milk ", "cup" },
-                    { new Guid("87721a4c-b420-492c-8a9a-6ff76993927f"), 3f, "eggs 3 pieces", "pieces" },
-                    { new Guid("9d9191f6-610f-4166-9ccf-c96d6c3d467b"), 0.5f, "stevia ", "cup" },
-                    { new Guid("d9bf0999-9aa4-43e1-9d35-8a33e679cf29"), 0.5f, "baking powder", "teaspoon" },
-                    { new Guid("dcd29382-ed1d-47f6-b5cc-3418f675e173"), 0.2f, "salt", "teaspoon" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Recipes",
-                columns: new[] { "Id", "AuthorId", "CategoryId", "ClientId", "Description", "ImagePath", "IngredientId", "Instructons", "Name" },
-                values: new object[] { new Guid("ec37e83e-afcf-41d9-8a36-2e4abf08dfa3"), new Guid("f48c4e29-4871-4507-bcbd-81f00b8e8704"), new Guid("78b81fe6-13b1-45df-ba68-60bdadc848c6"), null, "Delicious chocolate cake recipe", "/img/recipes/no_photo.jpg", new Guid("44bd6bc0-7980-4150-934a-54f0e2c47282"), "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.", "Chocolate Cake" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

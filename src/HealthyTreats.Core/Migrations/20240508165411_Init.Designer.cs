@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthyTreats.Core.Migrations
 {
     [DbContext(typeof(HealthyContext))]
-    [Migration("20240410004139_Init")]
+    [Migration("20240508165411_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -53,28 +53,6 @@ namespace HealthyTreats.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categorys");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("78b81fe6-13b1-45df-ba68-60bdadc848c6"),
-                            TitleCategory = "Vegan"
-                        },
-                        new
-                        {
-                            Id = new Guid("99d7f1d5-313f-4250-81a3-2d719f24423f"),
-                            TitleCategory = "Dairy free"
-                        },
-                        new
-                        {
-                            Id = new Guid("47277fae-1647-472d-94f0-be1bd0e3a6ac"),
-                            TitleCategory = "Gluten free"
-                        },
-                        new
-                        {
-                            Id = new Guid("5e652052-bf22-42af-84b1-98c67454e8b2"),
-                            TitleCategory = "Vegatarian"
-                        });
                 });
 
             modelBuilder.Entity("HealthyTreats.Core.Entities.Ingredient", b =>
@@ -97,57 +75,6 @@ namespace HealthyTreats.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ingredients");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("44bd6bc0-7980-4150-934a-54f0e2c47282"),
-                            Quantity = 1f,
-                            Title = "almond flour",
-                            Unit = "cup"
-                        },
-                        new
-                        {
-                            Id = new Guid("1711a2a4-7407-4c26-8505-0314ee1cdbd3"),
-                            Quantity = 0.5f,
-                            Title = "unsweetened cocoa powder",
-                            Unit = "cup"
-                        },
-                        new
-                        {
-                            Id = new Guid("9d9191f6-610f-4166-9ccf-c96d6c3d467b"),
-                            Quantity = 0.5f,
-                            Title = "stevia ",
-                            Unit = "cup"
-                        },
-                        new
-                        {
-                            Id = new Guid("d9bf0999-9aa4-43e1-9d35-8a33e679cf29"),
-                            Quantity = 0.5f,
-                            Title = "baking powder",
-                            Unit = "teaspoon"
-                        },
-                        new
-                        {
-                            Id = new Guid("dcd29382-ed1d-47f6-b5cc-3418f675e173"),
-                            Quantity = 0.2f,
-                            Title = "salt",
-                            Unit = "teaspoon"
-                        },
-                        new
-                        {
-                            Id = new Guid("87721a4c-b420-492c-8a9a-6ff76993927f"),
-                            Quantity = 3f,
-                            Title = "eggs 3 pieces",
-                            Unit = "pieces"
-                        },
-                        new
-                        {
-                            Id = new Guid("4bce46f4-9809-456f-8a82-7353f6f924b6"),
-                            Quantity = 0.5f,
-                            Title = "almond milk ",
-                            Unit = "cup"
-                        });
                 });
 
             modelBuilder.Entity("HealthyTreats.Core.Entities.Recipe", b =>
@@ -187,19 +114,6 @@ namespace HealthyTreats.Core.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("Recipes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("ec37e83e-afcf-41d9-8a36-2e4abf08dfa3"),
-                            AuthorId = new Guid("f48c4e29-4871-4507-bcbd-81f00b8e8704"),
-                            CategoryId = new Guid("78b81fe6-13b1-45df-ba68-60bdadc848c6"),
-                            Description = "Delicious chocolate cake recipe",
-                            ImagePath = "/img/recipes/no_photo.jpg",
-                            IngredientId = new Guid("44bd6bc0-7980-4150-934a-54f0e2c47282"),
-                            Instructons = "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.",
-                            Name = "Chocolate Cake"
-                        });
                 });
 
             modelBuilder.Entity("HealthyTreats.Core.Entities.User", b =>
@@ -273,33 +187,37 @@ namespace HealthyTreats.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f48c4e29-4871-4507-bcbd-81f00b8e8704"),
+                            Id = new Guid("94b4a939-11a6-474f-8bb7-721a2763c1cf"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "183c402c-1b70-4193-af2f-ec5a4adff3b2",
-                            Email = "user1@example.com",
+                            ConcurrencyStamp = "174e479e-b112-4c43-b94f-430d2d6ee769",
+                            Email = "admin@example.com",
                             EmailConfirmed = true,
-                            FullName = "John Doe",
+                            FullName = "Admin",
                             LockoutEnabled = false,
-                            NormalizedUserName = "USER1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMi6B1w8I1vtTeA2bHn1E18Hl/UQ77TGghAy430iRbGhsM4SVTLjWiM0WQzoKuONMw==",
+                            NormalizedEmail = "ADMIN@EXAMPLE.COM",
+                            NormalizedUserName = "ADMIN@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI/ijkHCJAIOwBkXDa1f4FXNZJM0gLOg5ykQongfYos2xo5HQxMGZSC+spdxJE47Mg==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "9f7085ed-5522-4761-b262-87974a43e484",
                             TwoFactorEnabled = false,
-                            UserName = "user1@example.com"
+                            UserName = "admin@example.com"
                         },
                         new
                         {
-                            Id = new Guid("07fedcf3-b71d-4d93-894b-e5c770e9be44"),
+                            Id = new Guid("0ef83fb5-41ab-4175-91da-8fba7b861f51"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f1063118-7f27-458a-ac48-8fad17e15ba2",
-                            Email = "user2@example.com",
+                            ConcurrencyStamp = "52741e5a-0af6-4988-bce1-2e4394ceff1d",
+                            Email = "user@example.com",
                             EmailConfirmed = true,
-                            FullName = "Jane Smith",
+                            FullName = "User",
                             LockoutEnabled = false,
-                            NormalizedUserName = "USER2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEND22WElDoQCvs8ayX27Lg6JqfBd1AleKxLKEc1HXd4cIX9jXI/UW/FWCp3Lacg3fg==",
+                            NormalizedEmail = "USER@EXAMPLE.COM",
+                            NormalizedUserName = "USER@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOxJIpiEN74D3dygc6sJCVPMFnR9w6+nvJTqYWsPB0sf/gQ78/k/0y+6TYKYccgfXw==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "8a1fdbab-e30b-4fbc-b72d-699fcb542683",
                             TwoFactorEnabled = false,
-                            UserName = "user2@example.com"
+                            UserName = "user@example.com"
                         });
                 });
 
@@ -344,6 +262,22 @@ namespace HealthyTreats.Core.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("03e89f63-b436-4879-b17a-ff428ad1327a"),
+                            ConcurrencyStamp = "03e89f63-b436-4879-b17a-ff428ad1327a",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = new Guid("dc8b81be-43e6-4e67-ab89-6e665267f4b3"),
+                            ConcurrencyStamp = "dc8b81be-43e6-4e67-ab89-6e665267f4b3",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -430,6 +364,18 @@ namespace HealthyTreats.Core.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("94b4a939-11a6-474f-8bb7-721a2763c1cf"),
+                            RoleId = new Guid("03e89f63-b436-4879-b17a-ff428ad1327a")
+                        },
+                        new
+                        {
+                            UserId = new Guid("0ef83fb5-41ab-4175-91da-8fba7b861f51"),
+                            RoleId = new Guid("dc8b81be-43e6-4e67-ab89-6e665267f4b3")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
