@@ -1,0 +1,19 @@
+﻿@model HealthyTreats.Core.Entities.Ingredient
+
+<h2>@Model.Title</h2>
+<p>Кількість: @Model.Quantity @Model.Unit</p>
+
+@if (Model.NutritionalInfo != null)
+{
+    <h3>Живильна інформація:</h3>
+    <ul>
+        <li>Калорії: @Model.NutritionalInfo.Calories</li>
+        <li>Білки: @Model.NutritionalInfo.Protein</li>
+        <li>Жири: @Model.NutritionalInfo.Fat</li>
+        <li>Вуглеводи: @Model.NutritionalInfo.Carbs</li>
+    </ul>
+}
+else
+{
+    <p>Живильна інформація недоступна для цього інгредієнта.</p>
+}

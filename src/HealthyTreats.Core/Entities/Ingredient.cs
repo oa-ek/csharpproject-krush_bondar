@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace HealthyTreats.Core.Entities
 		public string Title { get; set; }
 		public float Quantity { get; set; } 
 		public string Unit { get; set; }
+
+        public NutritionalInfo NutritionalInfo { get; set; } 
         public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
     }
 }

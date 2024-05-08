@@ -14,6 +14,11 @@ using HealthyTreats.Repositories.Recipe;
 using HealthyTreats.Repositories.User;
 using HealthyTreats.Core.Entities;
 using HealthyTreats.Repositories.Comon;
+using System.Net.Http;
+using System.Net.Http;
+using System.Text.Json;
+using Newtonsoft.Json;
+
 
 namespace HealthyTreats.WebUI.Controllers
 {
@@ -26,15 +31,17 @@ namespace HealthyTreats.WebUI.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
 
 
+
         public RecipesController(
             IRecipeRepository recipeRepository,
             IUserRepository userRepository,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment
+
+)
         {
             _recipeRepository = recipeRepository;
             _userRepository = userRepository;
             _webHostEnvironment = webHostEnvironment;
-
         }
 
 
@@ -109,22 +116,23 @@ namespace HealthyTreats.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Збереження обраних категорій
-                foreach (var categoryId in SelectedCategories)
+                foreach (var ingredient in Ingredients)
                 {
-                    var category = await _recipeRepository.GetCategoryAsync(categoryId);
-                    if (category != null)
+                    // Fetch nutritional data for each ingredient from Edamam API
+                    NutritionalInfo? nutritionalInfo = await FetchNutritionalInfo(ingredient.Title);
+
+                    if (nutritionalInfo != null)
                     {
-                        model.Categories.Add(category);
+                        ingredient.NutritionalInfo = nutritionalInfo;
+                    }
+                    else
+                    {
+                        // Handle the case where nutritional info is not available
+                        // For example, you can set a default value or display a message to the user
                     }
                 }
 
-                // Збереження інгредієнтів
-                foreach (var ingredient in Ingredients)
-                {
-                    model.Ingredients.Add(ingredient);
-                }
-
+                // Save the recipe along with its ingredients and nutritional information
                 await _recipeRepository.CreateAsync(model);
 
                 return RedirectToAction(nameof(Index));
@@ -134,9 +142,31 @@ namespace HealthyTreats.WebUI.Controllers
             return View(model);
         }
 
+        private async Task<NutritionalInfo> FetchNutritionalInfo(string ingredientName)
+        {
+            using (var client = new HttpClient())
+            {
+                // Build your request to Edamam API
+                string apiKey = "6addb7a9";
+                string appId = "6addb7a9";
+                string requestUrl = $"https://api.edamam.com/api/nutrition-data?app_id={appId}&app_key={apiKey}&ingr={ingredientName}";
 
+                HttpResponseMessage response = await client.GetAsync(requestUrl);
 
-
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseData = await response.Content.ReadAsStringAsync();
+                    // Parse the response JSON and extract nutritional information
+                    var nutritionalInfo = JsonConvert.DeserializeObject<NutritionalInfo>(responseData);
+                    return nutritionalInfo;
+                }
+                else
+                {
+                    // Handle unsuccessful response
+                    return null;
+                }
+            }
+        }
         public async Task<IActionResult> Edit(Guid id)
         {
             var recipe = await _recipeRepository.GetAsync(id);
@@ -201,5 +231,14 @@ namespace HealthyTreats.WebUI.Controllers
             }
         }
 
+        public IActionResult IngredientDetails()
+        {
+            return View();
+        }
+
     }
-}
+
+    }
+
+
+

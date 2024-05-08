@@ -64,17 +64,18 @@ namespace HealthyTreats.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ingredients",
+                name: "NutritionalInfos",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Quantity = table.Column<float>(type: "real", nullable: false),
-                    Unit = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Calories = table.Column<float>(type: "real", nullable: false),
+                    Protein = table.Column<float>(type: "real", nullable: false),
+                    Fat = table.Column<float>(type: "real", nullable: false),
+                    Carbs = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ingredients", x => x.Id);
+                    table.PrimaryKey("PK_NutritionalInfos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -211,6 +212,27 @@ namespace HealthyTreats.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Ingredients",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Quantity = table.Column<float>(type: "real", nullable: false),
+                    Unit = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NutritionalInfoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ingredients", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ingredients_NutritionalInfos_NutritionalInfoId",
+                        column: x => x.NutritionalInfoId,
+                        principalTable: "NutritionalInfos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CategoryRecipe",
                 columns: table => new
                 {
@@ -308,6 +330,11 @@ namespace HealthyTreats.Core.Migrations
                 column: "RecipesId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Ingredients_NutritionalInfoId",
+                table: "Ingredients",
+                column: "NutritionalInfoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Recipes_AuthorId",
                 table: "Recipes",
                 column: "AuthorId");
@@ -353,6 +380,9 @@ namespace HealthyTreats.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "Recipes");
+
+            migrationBuilder.DropTable(
+                name: "NutritionalInfos");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthyTreats.Core.Migrations
 {
     [DbContext(typeof(HealthyContext))]
-    [Migration("20240507233651_Init")]
+    [Migration("20240508222306_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -61,6 +61,9 @@ namespace HealthyTreats.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("NutritionalInfoId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<float>("Quantity")
                         .HasColumnType("real");
 
@@ -74,7 +77,32 @@ namespace HealthyTreats.Core.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("NutritionalInfoId");
+
                     b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("HealthyTreats.Core.Entities.NutritionalInfo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<float>("Calories")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Carbs")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Fat")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Protein")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NutritionalInfos");
                 });
 
             modelBuilder.Entity("HealthyTreats.Core.Entities.Recipe", b =>
@@ -342,6 +370,17 @@ namespace HealthyTreats.Core.Migrations
                         .HasForeignKey("RecipesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("HealthyTreats.Core.Entities.Ingredient", b =>
+                {
+                    b.HasOne("HealthyTreats.Core.Entities.NutritionalInfo", "NutritionalInfo")
+                        .WithMany()
+                        .HasForeignKey("NutritionalInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("NutritionalInfo");
                 });
 
             modelBuilder.Entity("HealthyTreats.Core.Entities.Recipe", b =>

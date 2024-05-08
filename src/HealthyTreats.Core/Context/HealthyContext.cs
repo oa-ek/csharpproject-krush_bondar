@@ -28,7 +28,7 @@ namespace HealthyTreats.Core.Context
         public DbSet<Recipe> Recipes => Set<Recipe>();
         public DbSet<Category> Categorys => Set<Category>();
         public DbSet<Ingredient> Ingredients => Set<Ingredient>();
-
+         public DbSet<NutritionalInfo> NutritionalInfos => Set<NutritionalInfo>();
     }
 }
 		
