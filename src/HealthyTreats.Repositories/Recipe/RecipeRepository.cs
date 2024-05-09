@@ -41,5 +41,9 @@ namespace HealthyTreats.Repositories.Recipe
                 .Include(r => r.Ingredients) // Завантаження інгредієнтів
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
-    }
+		public async Task<Ingredient> GetIngredientAsync(Guid id)
+		{
+			return await _ctx.Ingredients.FirstOrDefaultAsync(i => i.Id == id);
+		}
+	}
 }

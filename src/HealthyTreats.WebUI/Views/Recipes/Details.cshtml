@@ -16,7 +16,7 @@
     {
         @foreach (var ingredient in Model.Ingredients)
         {
-            <li><a href="@Url.Action("IngredientDetails", "Recipes")">@ingredient.Title</a></li>
+            <li><a href="@Url.Action("IngredientDetails", "Recipes", new { id = ingredient.Id })">@ingredient.Title</a></li>
 
         }
     }

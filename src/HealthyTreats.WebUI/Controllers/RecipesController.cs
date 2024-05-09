@@ -15,7 +15,8 @@ using HealthyTreats.Repositories.Recipe;
 using HealthyTreats.Repositories.Users;
 using HealthyTreats.Core.Entities;
 using HealthyTreats.Repositories.Comon;
-
+using System.Text.Json;
+using HealthyTreats.WebUI.Models;
 namespace HealthyTreats.WebUI.Controllers
 {
 
@@ -25,20 +26,22 @@ namespace HealthyTreats.WebUI.Controllers
         private readonly IRecipeRepository _recipeRepository;
         private readonly IUsersRepository _userRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
-       
+        private readonly IHttpClientFactory _clientFactory;
+
 
         public RecipesController(
             IRecipeRepository recipeRepository,
             IUsersRepository userRepository,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment,
+            IHttpClientFactory clientFactory)
         {
             _recipeRepository = recipeRepository;
             _userRepository = userRepository;
             _webHostEnvironment = webHostEnvironment;
-           
+            _clientFactory = clientFactory;
         }
 
-        
+
 
         public async Task<IActionResult> Index()
         {
@@ -59,12 +62,12 @@ namespace HealthyTreats.WebUI.Controllers
 
         public async Task<IActionResult> Create()
         {
-           
+
             ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
             ViewBag.Ingredients = await _recipeRepository.GetAllIngredientsAsync();
             return View(new Recipe());
         }
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Recipe model)
@@ -93,7 +96,7 @@ namespace HealthyTreats.WebUI.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-           
+
             ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
             return View(model);
         }
@@ -192,13 +195,52 @@ namespace HealthyTreats.WebUI.Controllers
             }
             catch
             {
-                return RedirectToAction("Delete", new {id = id});
+                return RedirectToAction("Delete", new { id = id });
             }
         }
 
 
-       
 
+
+        // Метод з параметром Guid id
+        public async Task<IActionResult> IngredientDetails(Guid id)
+        {
+            var ingredient = await _recipeRepository.GetIngredientAsync(id);
+            if (ingredient == null)
+            {
+                return NotFound();
+            }
+            return View(ingredient); // Передача модели в представление
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetRecipeNutrition(string ingredientName)
+        {
+            try
+            {
+                var client = _clientFactory.CreateClient();
+                var apiKey = "b50564970bee5415b5d052bdc3a3e9bd";
+                var nutritionApiUrl = $"https://api.edamam.com/api/nutrition-data?app_id=6addb7a9&app_key={apiKey}&ingr={ingredientName}";
+
+                var response = await client.GetAsync(nutritionApiUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var nutritionContent = await response.Content.ReadAsStringAsync();
+                    return Content(nutritionContent, "application/json"); // Return the parsed nutrition data as JSON
+                }
+                else
+                {
+                    return BadRequest("Failed to fetch nutrition data.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
     }
 }
 
