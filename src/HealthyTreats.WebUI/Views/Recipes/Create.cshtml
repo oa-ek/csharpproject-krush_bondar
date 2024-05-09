@@ -59,7 +59,6 @@
 
     
 
-
     <!-- Список чекбоксів категорій -->
     <div class="mb-3">
         <div class="form-check">
@@ -88,7 +87,7 @@
         </div>
     </div>
 
-    <button class="btn btn-primary" type="submit">Save</button>
+    <button class="btn btn-primary" type="submit">Зберегти</button>
 </form>
 
 @section Scripts {
@@ -103,9 +102,9 @@
             var newIngredient = document.createElement("div");
             newIngredient.classList.add("ingredient");
             newIngredient.innerHTML = `
-            <input type="text" name="Ingredients[${ingredientCount}].Title" placeholder="Name ingredient">
-    <input type="number" name="Ingredients[${ingredientCount}].Quantity" placeholder="Number">
-            <input type="text" name="Ingredients[${ingredientCount}].Unit" placeholder="Unit">
+    <input type="text" name="Ingredients[${ingredientCount}].Title" placeholder="Назва інгредієнту">
+    <input type="number" name="Ingredients[${ingredientCount}].Quantity" placeholder="Кількість">
+    <input type="text" name="Ingredients[${ingredientCount}].Unit" placeholder="Одиниця виміру">
         `;
         container.appendChild(newIngredient);
         ingredientCount++;

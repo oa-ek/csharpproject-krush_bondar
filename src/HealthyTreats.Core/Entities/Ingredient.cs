@@ -12,6 +12,6 @@ namespace HealthyTreats.Core.Entities
 		public string Title { get; set; }
 		public float Quantity { get; set; } 
 		public string Unit { get; set; }
-        public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
-    }
+		public virtual ICollection<Recipe> Recipes { get; set; } = new HashSet<Recipe>();
+	}
 }

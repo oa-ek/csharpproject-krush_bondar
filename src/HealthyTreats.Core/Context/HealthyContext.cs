@@ -15,14 +15,23 @@ namespace HealthyTreats.Core.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Recipe>()
-                .HasOne(r => r.Author)                // Кожен рецепт має одного автора
-                .WithMany(u => u.RecipesAuthor)             // Кожен користувач може мати багато рецептів
-                .HasForeignKey(r => r.AuthorId);
+              .HasOne(r => r.Author)
+              .WithMany(u => u.RecipesAuthor)
+              .HasForeignKey(r => r.AuthorId)
+              .IsRequired(false);
 
-            modelBuilder.Entity<Recipe>().HasMany(g => g.Categories).WithMany(g => g.Recipes);
-            modelBuilder.Entity<Recipe>().HasMany(g => g.Ingredients).WithMany(g => g.Recipes);
+            modelBuilder.Entity<Recipe>()
+                         .HasMany(r => r.Categories)
+                         .WithMany(c => c.Recipes)
+                         .UsingEntity(j => j.ToTable("RecipeCategory"));
 
+            modelBuilder.Entity<Recipe>()
+              .HasMany(r => r.Ingredients)
+              .WithMany(i => i.Recipes);
+
+            modelBuilder.Seed();
         }
 
         public DbSet<Recipe> Recipes => Set<Recipe>();
