@@ -11,115 +11,52 @@ namespace HealthyTreats.Core.Context
     {
         public static class DataSeed
         {
-
-            var (adminRoleId, userRoleId) = _seedRoles(builder);
-
-            var adminId = _seedAdmin(builder, adminRoleId);
-            var userId = _seedUsers(builder, userRoleId);
-        }
-
-        private static (Guid, Guid) _seedRoles(ModelBuilder builder)
-        {
-            var adminRoleId = Guid.NewGuid();
-            var userRoleId = Guid.NewGuid();
-
-            builder.Entity<IdentityRole<Guid>>()
-               .HasData(
-                   new IdentityRole<Guid>
-                   {
-                       Id = adminRoleId,
-                       Name = "Admin",
-                       NormalizedName = "ADMIN",
-                       ConcurrencyStamp = adminRoleId.ToString()
-                   },
-                   new IdentityRole<Guid>
-                   {
-                       Id = userRoleId,
-                       Name = "User",
-                       NormalizedName = "USER",
-                       ConcurrencyStamp = userRoleId.ToString()
-                   }
-               );
-
-            return (adminRoleId, userRoleId);
-        }
-
-        private static Guid _seedAdmin(ModelBuilder builder, Guid adminRoleId)
-        {
-            var adminId = Guid.NewGuid();
-
-            var admin = new User
+            public static void Seed(this ModelBuilder builder)
             {
-                Id = adminId,
-                UserName = "admin@example.com",
-                EmailConfirmed = true,
-                NormalizedUserName = "ADMIN@EXAMPLE.COM".ToUpper(),
-                Email = "admin@example.com",
-                NormalizedEmail = "ADMIN@EXAMPLE.COM".ToUpper(),
-                SecurityStamp = Guid.NewGuid().ToString(),
-                FullName = "Admin"
-            };
 
-            PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
-            admin.PasswordHash = passwordHasher.HashPassword(admin, "Admin123");
+                var userId = _seedUsers(builder);
+                var categoryId = _seedCategories(builder);
+                var ingredientId = _seedIngredients(builder);
+                var recipeId = _seedRecipes(builder, userId, categoryId, ingredientId);
 
-            builder.Entity<User>()
-                .HasData(admin);
+            }
 
-            builder.Entity<IdentityUserRole<Guid>>()
-              .HasData(
-                  new IdentityUserRole<Guid>
-                  {
-                      RoleId = adminRoleId,
-                      UserId = adminId
-                  }
-              );
-
-            return adminId;
-        }
-
-        private static Guid _seedUsers(ModelBuilder builder, Guid userRoleId)
-        {
-            var userId = Guid.NewGuid();
-
-            var user = new User
+            private static Guid _seedUsers(ModelBuilder builder)
             {
-                Id = userId,
-                UserName = "user@example.com",
-                EmailConfirmed = true,
-                NormalizedUserName = "USER@EXAMPLE.COM".ToUpper(),
-                Email = "user@example.com",
-                NormalizedEmail = "USER@EXAMPLE.COM".ToUpper(),
-                SecurityStamp = Guid.NewGuid().ToString(),
-                FullName = "User"
-            };
+                var userId = Guid.NewGuid();
 
-            PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
-            user.PasswordHash = passwordHasher.HashPassword(user, "User123");
+                var user = new User
+                {
+                    Id = userId,
+                    UserName = "user1@example.com",
+                    EmailConfirmed = true,
+                    NormalizedUserName = "USER1@EXAMPLE.COM",
+                    Email = "user1@example.com",
+                    FullName = "John Doe"
+                };
 
-            builder.Entity<User>()
-                .HasData(user);
+                var user2 = new User
+                {
+                    Id = Guid.NewGuid(),
+                    UserName = "user2@example.com",
+                    EmailConfirmed = true,
+                    NormalizedUserName = "USER2@EXAMPLE.COM",
+                    Email = "user2@example.com",
+                    FullName = "Jane Smith"
+                };
 
-            builder.Entity<IdentityUserRole<Guid>>()
-              .HasData(
-                  new IdentityUserRole<Guid>
-                  {
-                      RoleId = userRoleId,
-                      UserId = userId
-                  }
-              );
+                PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+                user.PasswordHash = passwordHasher.HashPassword(user, "Password123");
+                user2.PasswordHash = passwordHasher.HashPassword(user2, "Password456");
 
-            return userId;
-        }
-    
+                builder.Entity<User>()
+                  .HasData(user, user2);
 
-    //для даних
-    private static Guid _seedCategories(ModelBuilder builder)
-        {
-            var categoryId = Guid.NewGuid();
+                return userId;
+            }
 
-            var category = new Category
 
+            private static Guid _seedCategories(ModelBuilder builder)
             {
                 var categoryId = Guid.NewGuid();
 
@@ -249,6 +186,4 @@ namespace HealthyTreats.Core.Context
 
 
 
-
 }
-

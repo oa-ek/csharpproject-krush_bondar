@@ -10,21 +10,23 @@
 {
     <p>Category: @Model.Categories.First().TitleCategory</p> 
 }
-
-<h3>Ingredients:</h3>
- <ul>
-@if (Model.Ingredients.Any())
+@if (Model.Categories.Any())
 {
-    @foreach (var ingredient in Model.Ingredients)
-    {
-     <li><a href="@Url.Action("IngredientDetails", "Recipes")">@ingredient.Title</a></li>
-
-    }
+    <p>Category: @Model.Categories.First().TitleCategory</p>
 }
-else
-{
-             <li>No ingredients available</li>
-}
- </ul>
-
-
+<p>
+    <h3>Ingredients:</h3>
+    <ul>
+        @if (Model.Ingredients.Any())
+        {
+            @foreach (var ingredient in Model.Ingredients)
+            {
+                <li>@ingredient.Title - @ingredient.Quantity @ingredient.Unit</li>
+            }
+        }
+        else
+        {
+            <li>No ingredients available</li>
+        }
+    </ul>
+</p>

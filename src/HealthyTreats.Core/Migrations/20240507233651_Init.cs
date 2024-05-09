@@ -258,60 +258,6 @@ namespace HealthyTreats.Core.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-<<<<<<<< HEAD:src/HealthyTreats.Core/Migrations/20240507233651_Init.cs
-========
-            migrationBuilder.CreateTable(
-                name: "RecipeCategory",
-                columns: table => new
-                {
-                    CategoriesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RecipesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RecipeCategory", x => new { x.CategoriesId, x.RecipesId });
-                    table.ForeignKey(
-                        name: "FK_RecipeCategory_Categorys_CategoriesId",
-                        column: x => x.CategoriesId,
-                        principalTable: "Categorys",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RecipeCategory_Recipes_RecipesId",
-                        column: x => x.RecipesId,
-                        principalTable: "Recipes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { new Guid("03e89f63-b436-4879-b17a-ff428ad1327a"), "03e89f63-b436-4879-b17a-ff428ad1327a", "Admin", "ADMIN" },
-                    { new Guid("dc8b81be-43e6-4e67-ab89-6e665267f4b3"), "dc8b81be-43e6-4e67-ab89-6e665267f4b3", "User", "USER" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { new Guid("0ef83fb5-41ab-4175-91da-8fba7b861f51"), 0, "52741e5a-0af6-4988-bce1-2e4394ceff1d", "user@example.com", true, "User", false, null, "USER@EXAMPLE.COM", "USER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEOxJIpiEN74D3dygc6sJCVPMFnR9w6+nvJTqYWsPB0sf/gQ78/k/0y+6TYKYccgfXw==", null, false, "8a1fdbab-e30b-4fbc-b72d-699fcb542683", false, "user@example.com" },
-                    { new Guid("94b4a939-11a6-474f-8bb7-721a2763c1cf"), 0, "174e479e-b112-4c43-b94f-430d2d6ee769", "admin@example.com", true, "Admin", false, null, "ADMIN@EXAMPLE.COM", "ADMIN@EXAMPLE.COM", "AQAAAAIAAYagAAAAEI/ijkHCJAIOwBkXDa1f4FXNZJM0gLOg5ykQongfYos2xo5HQxMGZSC+spdxJE47Mg==", null, false, "9f7085ed-5522-4761-b262-87974a43e484", false, "admin@example.com" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[,]
-                {
-                    { new Guid("dc8b81be-43e6-4e67-ab89-6e665267f4b3"), new Guid("0ef83fb5-41ab-4175-91da-8fba7b861f51") },
-                    { new Guid("03e89f63-b436-4879-b17a-ff428ad1327a"), new Guid("94b4a939-11a6-474f-8bb7-721a2763c1cf") }
-                });
-
->>>>>>>> Registration-login:src/HealthyTreats.Core/Migrations/20240508165411_Init.cs
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",

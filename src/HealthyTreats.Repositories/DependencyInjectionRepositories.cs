@@ -1,8 +1,6 @@
-﻿using HealthyTreats.Core.Entities;
-using HealthyTreats.Repositories.Comon;
+﻿using HealthyTreats.Repositories.Comon;
 using HealthyTreats.Repositories.Recipe;
-using HealthyTreats.Repositories.Users;
-using Microsoft.AspNetCore.Identity;
+using HealthyTreats.Repositories.User;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -18,9 +16,7 @@ namespace HealthyTreats.Repositories
         {
             services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
             services.AddScoped<IRecipeRepository, RecipeRepository>();
-            services.AddScoped<IUsersRepository, UsersRepository>();
-            services.AddScoped<UserManager<User>>();
-            services.AddScoped<RoleManager<IdentityRole<Guid>>>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }
