@@ -174,44 +174,6 @@ namespace HealthyTreats.Core.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("94b4a939-11a6-474f-8bb7-721a2763c1cf"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "174e479e-b112-4c43-b94f-430d2d6ee769",
-                            Email = "admin@example.com",
-                            EmailConfirmed = true,
-                            FullName = "Admin",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@EXAMPLE.COM",
-                            NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI/ijkHCJAIOwBkXDa1f4FXNZJM0gLOg5ykQongfYos2xo5HQxMGZSC+spdxJE47Mg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "9f7085ed-5522-4761-b262-87974a43e484",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@example.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("0ef83fb5-41ab-4175-91da-8fba7b861f51"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "52741e5a-0af6-4988-bce1-2e4394ceff1d",
-                            Email = "user@example.com",
-                            EmailConfirmed = true,
-                            FullName = "User",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "USER@EXAMPLE.COM",
-                            NormalizedUserName = "USER@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOxJIpiEN74D3dygc6sJCVPMFnR9w6+nvJTqYWsPB0sf/gQ78/k/0y+6TYKYccgfXw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "8a1fdbab-e30b-4fbc-b72d-699fcb542683",
-                            TwoFactorEnabled = false,
-                            UserName = "user@example.com"
-                        });
-
                 });
 
             modelBuilder.Entity("IngredientRecipe", b =>
@@ -255,22 +217,6 @@ namespace HealthyTreats.Core.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("03e89f63-b436-4879-b17a-ff428ad1327a"),
-                            ConcurrencyStamp = "03e89f63-b436-4879-b17a-ff428ad1327a",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = new Guid("dc8b81be-43e6-4e67-ab89-6e665267f4b3"),
-                            ConcurrencyStamp = "dc8b81be-43e6-4e67-ab89-6e665267f4b3",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -357,18 +303,6 @@ namespace HealthyTreats.Core.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("94b4a939-11a6-474f-8bb7-721a2763c1cf"),
-                            RoleId = new Guid("03e89f63-b436-4879-b17a-ff428ad1327a")
-                        },
-                        new
-                        {
-                            UserId = new Guid("0ef83fb5-41ab-4175-91da-8fba7b861f51"),
-                            RoleId = new Guid("dc8b81be-43e6-4e67-ab89-6e665267f4b3")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
