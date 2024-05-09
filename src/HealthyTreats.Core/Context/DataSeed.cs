@@ -9,53 +9,112 @@ using System.Threading.Tasks;
 
 namespace HealthyTreats.Core.Context
 {
-	public static class DataSeed
-	{
+    public static class DataSeed
+    {
         public static void Seed(this ModelBuilder builder)
         {
+            var (adminRoleId, userRoleId) = _seedRoles(builder);
 
-            var userId = _seedUsers(builder);
-            var categoryId = _seedCategories(builder);
-            var ingredientId = _seedIngredients(builder);
-            var recipeId = _seedRecipes(builder, userId, categoryId, ingredientId);
-
+            var adminId = _seedAdmin(builder, adminRoleId);
+            var userId = _seedUsers(builder, userRoleId);
         }
 
-        private static Guid _seedUsers(ModelBuilder builder)
+        private static (Guid, Guid) _seedRoles(ModelBuilder builder)
+        {
+            var adminRoleId = Guid.NewGuid();
+            var userRoleId = Guid.NewGuid();
+
+            builder.Entity<IdentityRole<Guid>>()
+               .HasData(
+                   new IdentityRole<Guid>
+                   {
+                       Id = adminRoleId,
+                       Name = "Admin",
+                       NormalizedName = "ADMIN",
+                       ConcurrencyStamp = adminRoleId.ToString()
+                   },
+                   new IdentityRole<Guid>
+                   {
+                       Id = userRoleId,
+                       Name = "User",
+                       NormalizedName = "USER",
+                       ConcurrencyStamp = userRoleId.ToString()
+                   }
+               );
+
+            return (adminRoleId, userRoleId);
+        }
+
+        private static Guid _seedAdmin(ModelBuilder builder, Guid adminRoleId)
+        {
+            var adminId = Guid.NewGuid();
+
+            var admin = new User
+            {
+                Id = adminId,
+                UserName = "admin@example.com",
+                EmailConfirmed = true,
+                NormalizedUserName = "ADMIN@EXAMPLE.COM".ToUpper(),
+                Email = "admin@example.com",
+                NormalizedEmail = "ADMIN@EXAMPLE.COM".ToUpper(),
+                SecurityStamp = Guid.NewGuid().ToString(),
+                FullName = "Admin"
+            };
+
+            PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+            admin.PasswordHash = passwordHasher.HashPassword(admin, "Admin123");
+
+            builder.Entity<User>()
+                .HasData(admin);
+
+            builder.Entity<IdentityUserRole<Guid>>()
+              .HasData(
+                  new IdentityUserRole<Guid>
+                  {
+                      RoleId = adminRoleId,
+                      UserId = adminId
+                  }
+              );
+
+            return adminId;
+        }
+
+        private static Guid _seedUsers(ModelBuilder builder, Guid userRoleId)
         {
             var userId = Guid.NewGuid();
 
             var user = new User
             {
                 Id = userId,
-                UserName = "user1@example.com",
+                UserName = "user@example.com",
                 EmailConfirmed = true,
-                NormalizedUserName = "USER1@EXAMPLE.COM",
-                Email = "user1@example.com",
-                FullName = "John Doe"
-            };
-
-            var user2 = new User
-            {
-                Id = Guid.NewGuid(),
-                UserName = "user2@example.com",
-                EmailConfirmed = true,
-                NormalizedUserName = "USER2@EXAMPLE.COM",
-                Email = "user2@example.com",
-                FullName = "Jane Smith"
+                NormalizedUserName = "USER@EXAMPLE.COM".ToUpper(),
+                Email = "user@example.com",
+                NormalizedEmail = "USER@EXAMPLE.COM".ToUpper(),
+                SecurityStamp = Guid.NewGuid().ToString(),
+                FullName = "User"
             };
 
             PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
-            user.PasswordHash = passwordHasher.HashPassword(user, "Password123");
-            user2.PasswordHash = passwordHasher.HashPassword(user2, "Password456");
+            user.PasswordHash = passwordHasher.HashPassword(user, "User123");
 
             builder.Entity<User>()
-              .HasData(user, user2);
+                .HasData(user);
+
+            builder.Entity<IdentityUserRole<Guid>>()
+              .HasData(
+                  new IdentityUserRole<Guid>
+                  {
+                      RoleId = userRoleId,
+                      UserId = userId
+                  }
+              );
 
             return userId;
         }
 
 
+        //для даних
         private static Guid _seedCategories(ModelBuilder builder)
         {
             var categoryId = Guid.NewGuid();
@@ -65,7 +124,6 @@ namespace HealthyTreats.Core.Context
                 Id = categoryId,
                 TitleCategory = "Vegan"
             };
-
             var category2 = new Category
             {
                 Id = Guid.NewGuid(),
@@ -149,7 +207,7 @@ namespace HealthyTreats.Core.Context
             };
 
             builder.Entity<Ingredient>()
-              .HasData(ingredients, ingredients2, ingredients3, ingredients4, ingredients5, ingredients6 ,ingredients7);
+              .HasData(ingredients, ingredients2, ingredients3, ingredients4, ingredients5, ingredients6, ingredients7);
 
             return ingredientsId;
         }
@@ -165,8 +223,8 @@ namespace HealthyTreats.Core.Context
                 Instructons = "1. Preheat oven to 350°F (180°C). 2. Mix ingredients. 3. Bake for 30 minutes.",
                 AuthorId = userId,
                 CategoryId = categoryId,
-                IngredientId = ingredientsId ,
-                 ImagePath  = "/img/recipes/no_photo.jpg"
+                IngredientId = ingredientsId,
+                ImagePath = "/img/recipes/no_photo.jpg"
             };
 
             // Додайте рецепт до контексту
@@ -182,12 +240,3 @@ namespace HealthyTreats.Core.Context
 
 
 }
-
-
-
-
-
-
-
-
-

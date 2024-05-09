@@ -7,37 +7,21 @@
 
 @if (Model.Categories.Any())
 {
-    <p>Category: @Model.Categories.First().TitleCategory</p> 
+    <p>Category: @Model.Categories.First().TitleCategory</p>
 }
-<p>
-    Ingredients:
-</p>
+
+<h3>Ingredients:</h3>
 <ul>
-    <li>
-        almond flour 1 cup 
-    </li>
-    <li>
-        unsweetened cocoa powder 0,5 cup
-    </li>
-    <li>
-        stevia 0,5 cup
-    </li>
-    <li>
-        baking powder 0,5 teaspoon
-    </li>
-    <li>
-        salt 0,2 teaspoon
-    </li>
-       
-    <li>
-        eggs 3 pieces
-    </li>
-    <li>
-        almond milk 0,5 cup
-    </li>
-</ul>
-    @foreach (var ingredient in Model.Ingredients)
+    @if (Model.Ingredients.Any())
     {
-        <li>@ingredient.Title</li>
+        @foreach (var ingredient in Model.Ingredients)
+        {
+            <li><a href="@Url.Action("IngredientDetails", "Recipes")">@ingredient.Title</a></li>
+
+        }
+    }
+    else
+    {
+        <li>No ingredients available</li>
     }
 </ul>
