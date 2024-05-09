@@ -3,6 +3,34 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+   
+    
+</div>
+
+<div class="container">
+    <h2>Recipes</h2>
+    <br />
+
+    <div class="row">
+        @if (Model != null && Model.Count > 0)
+        {
+            @foreach (var recipe in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="@recipe.ImagePath" class="card-img-top" alt="Recipe Image">
+                        <div class="card-body">
+                            <h5 class="card-title">@recipe.Name</h5>
+                            <p class="card-text">@recipe.Description</p>
+                            <a href="/Home/Details/@recipe.Id" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No recipes available.</p>
+        }
+    </div>
 </div>

@@ -13,7 +13,7 @@ namespace HealthyTreats.Repositories.Recipe
     {
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
         Task<Category> GetCategoryAsync(Guid categoryId);
-
+        Task<List<Ingredient>> GetAllIngredientsAsync();
     }
 
 }

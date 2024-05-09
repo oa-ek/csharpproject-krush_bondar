@@ -61,9 +61,10 @@ namespace HealthyTreats.WebUI.Controllers
         {
            
             ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
+            ViewBag.Ingredients = await _recipeRepository.GetAllIngredientsAsync();
             return View(new Recipe());
         }
-
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Recipe model)
@@ -194,6 +195,9 @@ namespace HealthyTreats.WebUI.Controllers
                 return RedirectToAction("Delete", new {id = id});
             }
         }
+
+
+       
 
     }
 }
