@@ -1,0 +1,47 @@
+﻿<aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/">
+                <i class="bi bi-grid"></i>
+                <span>Головна</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole("Admin"))
+            {
+                <!-- Пункти меню для адміністратора -->
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Recipes">Recipes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Ingredients">Ingredients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Category">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="UserController1">Users</a>
+                </li>
+            }
+            else
+            {
+                <!-- Пункти меню для звичайного користувача -->
+                @* <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>*@
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Recipes">Recipes</a>
+                </li>
+            }
+
+            <!-- Пункт меню для усіх користувачів -->
+            @*<li class="nav-item">
+                <form method="post" asp-area="" asp-controller="Account" asp-action="Logout">
+                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+            </li>
+            *@
+        }
+    </ul>
+</aside><!-- End Sidebar-->
