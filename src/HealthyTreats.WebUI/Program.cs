@@ -26,6 +26,8 @@ builder.Services.AddDefaultIdentity<User>(
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddRepositories();
+builder.Services.AddHttpClient();
+
 
 var app = builder.Build();
 
@@ -41,6 +43,11 @@ else
     app.UseHsts();
 }
 
+app.MapControllerRoute(
+    name: "IngredientDetails",
+    pattern: "Recipes/IngredientDetails/{id}",
+    defaults: new { controller = "Recipes", action = "IngredientDetails" }
+);
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

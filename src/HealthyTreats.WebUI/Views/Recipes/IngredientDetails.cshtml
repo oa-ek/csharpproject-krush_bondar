@@ -1,5 +1,63 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model HealthyTreats.Core.Entities.Ingredient
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Деталі інгредієнта</title>
+</head>
+<body>
+    <h1>Детали інгредієнта</h1>
+
+    <!-- Добавьте таблицю для відображення деталей інгредієнта -->
+    <table>
+        <tr>
+            <th>Назва</th>
+            <th>Кількість</th>
+            <th>Одиниця виміру</th>
+        </tr>
+        <tr>
+            <td>@Model.Title</td>
+            <td>@Model.Quantity</td>
+            <td>@Model.Unit</td>
+        </tr>
+    </table>
+
+    <!-- Добавте посилання для отримання питомої ваги -->
+    <a href="#" id="getNutritionData">Отримати питому вагу</a>
+
+    <!-- Добавьте контейнер для відображення даних про питому вагу -->
+    <div id="nutritionInfo"></div>
+
+    <!-- JavaScript для взаємодії зі сторінкою -->
+    <script>
+        document.getElementById('getNutritionData').addEventListener('click', function (event) {
+            event.preventDefault();
+            // Отримайте назву інгредієнта
+            var ingredientName = '@Model.Title';
+            // Відправте запит на сервер для отримання даних про питому вагу
+            fetch('/Recipes/GetRecipeNutrition?ingredientName=' + encodeURIComponent(ingredientName))
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Не вдалося отримати дані про питому вагу.');
+                    }
+                })
+                .then(data => {
+                    // Обробте отримані дані про питому вагу
+                    var nutritionInfoElement = document.getElementById('nutritionInfo');
+                    nutritionInfoElement.innerHTML = ''; // Очистіть контейнер перед додаванням нових даних
+                    // Створіть елементи для кожного параметра питомої ваги і додайте їх до контейнера
+                    Object.keys(data).forEach(key => {
+                        var nutrientElement = document.createElement('p');
+                        nutrientElement.textContent = `${key}: ${data[key]}`;
+                        nutritionInfoElement.appendChild(nutrientElement);
+                    });
+                })
+                .catch(error => {
+                    console.error('Помилка:', error);
+                });
+        });
+    </script>
+</body>
+</html>
