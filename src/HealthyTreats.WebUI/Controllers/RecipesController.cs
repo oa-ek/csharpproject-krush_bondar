@@ -229,7 +229,7 @@ namespace HealthyTreats.WebUI.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     var nutritionContent = await response.Content.ReadAsStringAsync();
-                    return Content(nutritionContent, "application/json"); // Return the parsed nutrition data as JSON
+                    return Content(nutritionContent, "application/json"); 
                 }
                 else
                 {
