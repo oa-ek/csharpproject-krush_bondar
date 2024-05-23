@@ -28,8 +28,8 @@
                 <td>@string.Join(", ", u.Roles)</td>
                 <td><input class="form-check-input" @(u.IsEmailConfirmed ? "checked" : "") type="checkbox" disabled></td>
                 <td>
-                    <a href="/usercontroller1/edit/@u.Id" class="btn btn-warning">Edit</a>
-                    <a href="#" data-id="@u.Id" data-email="@u.Email" class="btn btn-danger btn-remove-user">Remove</a>
+                    <a href="/usercontroller1/edit/@u.Id" class="btn btn-outline-primary">Edit</a>
+                    <a href="#" data-id="@u.Id" data-email="@u.Email" class="btn btn-outline-primary btn-remove-user">Remove</a>
                 </td>
             </tr>
         }

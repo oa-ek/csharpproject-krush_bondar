@@ -2,7 +2,7 @@
     ViewData["Title"] = "Healthy Treats";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<a href="/Recipes/Create" class="btn btn-success float-end">Add a recipe</a>
+<a href="/Recipes/Create" class="btn btn-primary float-end">Add a recipe</a>
 
 <h1>@ViewData["Title"]</h1>
 
@@ -19,9 +19,9 @@
                         <h5 class="card-title">@p.Name</h5>
                         <p class="card-text">@p.Description</p>
                         <div class="btn-group" role="group">
-                            <a href="/Recipes/Details/@p.Id" class="btn btn-primary"> Details </a>
-                            <a href="/Recipes/Edit/@p.Id" class="btn btn-warning">Edit</a>
-                            <a href="/Recipes/Delete/@p.Id" class="btn btn-danger">Delete</a>
+                            <a href="/Recipes/Details/@p.Id" class="btn btn-outline-primary"> Details </a>
+                            <a href="/Recipes/Edit/@p.Id" class="btn btn-outline-primary">Edit</a>
+                            <a href="/Recipes/Delete/@p.Id" class="btn btn-outline-primary">Delete</a>
                         </div>
                     </div>
                 </div>
