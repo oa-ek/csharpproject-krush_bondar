@@ -17,6 +17,7 @@ using HealthyTreats.Core.Entities;
 using HealthyTreats.Repositories.Comon;
 using System.Text.Json;
 using HealthyTreats.WebUI.Models;
+using System.Security.Claims;
 namespace HealthyTreats.WebUI.Controllers
 {
 
@@ -45,8 +46,14 @@ namespace HealthyTreats.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var recipes = await _recipeRepository.GetAllAsync();
-            return View(recipes);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (Guid.TryParse(userId, out var authorId))
+            {
+                var recipes = await _recipeRepository.GetByAuthorAsync(authorId);
+                return View(recipes);
+            }
+
+            return Unauthorized();
         }
 
         public async Task<IActionResult> Details(Guid id)
@@ -72,33 +79,37 @@ namespace HealthyTreats.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Recipe model)
         {
-            if (ModelState.IsValid)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (Guid.TryParse(userId, out var authorId))
             {
+                model.AuthorId = authorId;
 
-
-                if (model.ImageFile != null)
+                if (ModelState.IsValid)
                 {
-                    string wwwRootPath = _webHostEnvironment.WebRootPath;
-
-                    var fileExt = Path.GetExtension(model.ImageFile.FileName);
-                    var filePath = Path.Combine("img", "recipes", $"{Guid.NewGuid()}{fileExt}");
-                    string path = Path.Combine(wwwRootPath, filePath);
-
-                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    if (model.ImageFile != null)
                     {
-                        await model.ImageFile.CopyToAsync(fileStream);
+                        string wwwRootPath = _webHostEnvironment.WebRootPath;
+                        var fileExt = Path.GetExtension(model.ImageFile.FileName);
+                        var filePath = Path.Combine("img", "recipes", $"{Guid.NewGuid()}{fileExt}");
+                        string path = Path.Combine(wwwRootPath, filePath);
+
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            await model.ImageFile.CopyToAsync(fileStream);
+                        }
+
+                        model.ImagePath = filePath;
                     }
 
-                    model.ImagePath = filePath;
+                    await _recipeRepository.CreateAsync(model);
+                    return RedirectToAction(nameof(Index));
                 }
 
-                await _recipeRepository.CreateAsync(model);
-
-                return RedirectToAction(nameof(Index));
+                ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "TitleCategory");
+                return View(model);
             }
 
-            ViewBag.Categories = new SelectList(await _recipeRepository.GetAllCategoriesAsync(), "Id", "Name");
-            return View(model);
+            return Unauthorized();
         }
 
         [HttpPost("CreateWithDetails")]
@@ -175,8 +186,6 @@ namespace HealthyTreats.WebUI.Controllers
 
 
 
-
-        // GET: ProjectsController/Delete/5
         public async Task<IActionResult> Delete(Guid id)
         {
             var recipes = await _recipeRepository.GetAsync(id);
@@ -200,6 +209,8 @@ namespace HealthyTreats.WebUI.Controllers
         }
 
 
+      
+
 
 
         // Метод з параметром Guid id
@@ -214,7 +225,7 @@ namespace HealthyTreats.WebUI.Controllers
         }
 
 
-
+        //іра-парсення
         [HttpGet]
         public async Task<IActionResult> GetRecipeNutrition(string ingredientName)
         {
@@ -241,6 +252,10 @@ namespace HealthyTreats.WebUI.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+
+
+
+
     }
 }
 

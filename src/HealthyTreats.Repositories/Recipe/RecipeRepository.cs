@@ -14,6 +14,20 @@ namespace HealthyTreats.Repositories.Recipe
 
     {
         public RecipeRepository(HealthyContext ctx) : base(ctx) { }
+
+
+        //ааааааааааааааааааааааааааа
+        public async Task<IEnumerable<HealthyTreats.Core.Entities.Recipe>> GetByAuthorAsync(Guid authorId)
+        {
+            return await _ctx.Recipes
+                .Where(r => r.AuthorId == authorId)
+                .Include(r => r.Categories)
+                .Include(r => r.Ingredients)
+                .ToListAsync();
+        }
+        //ааааааааааааааааааааааааааа
+
+
         public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
         {
             return await _ctx.Categorys.ToListAsync();
@@ -38,12 +52,22 @@ namespace HealthyTreats.Repositories.Recipe
         public async Task<HealthyTreats.Core.Entities.Recipe> GetAsync(Guid id)
         {
             return await _ctx.Recipes
-                .Include(r => r.Ingredients) // Завантаження інгредієнтів
+                .Include(r => r.Ingredients)
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
-		public async Task<Ingredient> GetIngredientAsync(Guid id)
+
+        public async Task<Ingredient> GetIngredientAsync(Guid id)
 		{
 			return await _ctx.Ingredients.FirstOrDefaultAsync(i => i.Id == id);
 		}
-	}
+
+
+
+
+        // Метод для перевірки, чи рецепт належить певному автору
+        public async Task<bool> IsRecipeAuthorAsync(Guid recipeId, Guid authorId)
+        {
+            return await _ctx.Recipes.AnyAsync(r => r.Id == recipeId && r.AuthorId == authorId);
+        }
+    }
 }
