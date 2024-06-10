@@ -1,10 +1,16 @@
-﻿
-@model HealthyTreats.Core.Entities.Recipe
+﻿@model HealthyTreats.Core.Entities.Recipe
+<script src="https://kit.fontawesome.com/4335c0bc9b.js" crossorigin="anonymous"></script>
 
 <h2>@Model.Name</h2>
 <p>@Model.Description</p>
 <p>@Model.Instructons</p>
 <img src="~/@Model.ImagePath" alt="Recipe Image">
+<div id="like-section">
+    <button id="like-button" onclick="toggleLike('@Model.Id')">
+        <i id="like-icon" class="fa-regular fa-heart"></i>
+        <span id="like-count">@ViewBag.Likes</span>
+    </button>
+</div>
 
 @if (Model.Categories.Any())
 {
@@ -17,8 +23,7 @@
     {
         @foreach (var ingredient in Model.Ingredients)
         {
-            <li><a href="@Url.Action("IngredientDetails", "Home")">@ingredient.Title</a></li>
-
+            <li><a href="@Url.Action("IngredientDetails", "Home", new { id = ingredient.Id })">@ingredient.Title</a></li>
         }
     }
     else
@@ -26,3 +31,79 @@
         <li>No ingredients available</li>
     }
 </ul>
+
+@section Scripts {
+    <script>
+        function toggleLike(recipeId) {
+            const likeButton = document.getElementById('like-button');
+            const likeIconElement = document.getElementById('like-icon');
+            const likeCountElement = document.getElementById('like-count');
+
+            // Check if the recipe is already liked
+            const alreadyLiked = likeIconElement.classList.contains('liked');
+
+            // Determine the URL based on like/unlike action
+            const url = alreadyLiked ? `/Home/UnlikeRecipe/${recipeId}` : `/Home/LikeRecipe/${recipeId}`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('input[name="__RequestVerificationToken"]').value
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        let likes = parseInt(likeCountElement.innerText);
+
+                        if (data.liked) {
+                            likeCountElement.innerText = likes + 1;
+                            likeIconElement.classList.add('liked');
+                            likeIconElement.classList.remove('fa-regular');
+                            likeIconElement.classList.add('fa-solid');
+                            likeIconElement.style.color = '#ff0000';
+                        } else {
+                            likeCountElement.innerText = likes - 1;
+                            likeIconElement.classList.remove('liked');
+                            likeIconElement.classList.remove('fa-solid');
+                            likeIconElement.classList.add('fa-regular');
+                            likeIconElement.style.color = 'grey';
+                        }
+                    } else {
+                        alert('Failed to update likes.');
+                    }
+                });
+        }
+    </script>
+
+    <style>
+        #like-section {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        #like-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 1.2em;
+        }
+
+        #like-icon {
+            color: grey;
+            margin-right: 5px;
+        }
+
+            #like-icon.liked {
+                color: red;
+            }
+
+        #like-count {
+            font-weight: bold;
+        }
+    </style>
+}
