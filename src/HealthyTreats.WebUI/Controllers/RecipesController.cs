@@ -236,20 +236,22 @@ namespace HealthyTreats.WebUI.Controllers
 
         //іра-парсення
         [HttpGet]
-        public async Task<IActionResult> GetRecipeNutrition(string ingredientName)
+        public async Task<IActionResult> GetRecipeNutrition(string ingredientName, float quantity, string unit)
         {
             try
             {
                 var client = _clientFactory.CreateClient();
                 var apiKey = "b50564970bee5415b5d052bdc3a3e9bd";
-                var nutritionApiUrl = $"https://api.edamam.com/api/nutrition-data?app_id=6addb7a9&app_key={apiKey}&ingr={ingredientName}";
+                var formattedIngredient = $"{ingredientName} {quantity} {unit}";
+                var encodedIngredient = Uri.EscapeDataString(formattedIngredient);
+                var nutritionApiUrl = $"https://api.edamam.com/api/nutrition-data?app_id=6addb7a9&app_key={apiKey}&ingr={encodedIngredient}";
 
                 var response = await client.GetAsync(nutritionApiUrl);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var nutritionContent = await response.Content.ReadAsStringAsync();
-                    return Content(nutritionContent, "application/json"); 
+                    return Content(nutritionContent, "application/json");
                 }
                 else
                 {
@@ -267,4 +269,3 @@ namespace HealthyTreats.WebUI.Controllers
 
     }
 }
-

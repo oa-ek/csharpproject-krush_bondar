@@ -1,19 +1,66 @@
-﻿@model HealthyTreats.Core.Entities.Ingredient
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Деталі інгредієнта</title>
+    <title>Ingredient details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        #nutritionInfo {
+            margin-top: 20px;
+        }
+
+        #getNutritionData {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+            #getNutritionData:hover {
+                background-color: #45a049;
+            }
+    </style>
 </head>
 <body>
-    <h1>Деталі інгредієнта</h1>
+    <h1>Ingredient details</h1>
 
-  
     <table>
         <tr>
-            <th>Назва</th>
-            <th>Кількість</th>
-            <th>Одиниця виміру</th>
+            <th>Title</th>
+            <th>Quantity</th>
+            <th>Unit</th>
         </tr>
         <tr>
             <td>@Model.Title</td>
@@ -22,20 +69,19 @@
         </tr>
     </table>
 
- 
-    <a href="#" id="getNutritionData">Отримати дані про інгрідієнти</a>
+    <a href="#" id="getNutritionData">Nutritional value</a>
 
-  
     <div id="nutritionInfo"></div>
 
-   
     <script>
         document.getElementById('getNutritionData').addEventListener('click', function (event) {
             event.preventDefault();
-            
+
             var ingredientName = '@Model.Title';
-            
-            fetch('/Recipes/GetRecipeNutrition?ingredientName=' + encodeURIComponent(ingredientName))
+            var quantity = '@Model.Quantity';
+            var unit = '@Model.Unit';
+
+            fetch(`/Recipes/GetRecipeNutrition?ingredientName=${encodeURIComponent(ingredientName)}&quantity=${encodeURIComponent(quantity)}&unit=${encodeURIComponent(unit)}`)
                 .then(response => {
                     if (response.ok) {
                         return response.json();
@@ -44,14 +90,44 @@
                     }
                 })
                 .then(data => {
-                   
                     var nutritionInfoElement = document.getElementById('nutritionInfo');
-                    nutritionInfoElement.innerHTML = ''; 
-                    Object.keys(data).forEach(key => {
-                        var nutrientElement = document.createElement('p');
-                        nutrientElement.textContent = `${key}: ${data[key]}`;
-                        nutritionInfoElement.appendChild(nutrientElement);
+                    nutritionInfoElement.innerHTML = '';
+
+                    var table = document.createElement('table');
+                    var thead = document.createElement('thead');
+                    var tbody = document.createElement('tbody');
+
+                    // Заголовки таблиці
+                    var headerRow = document.createElement('tr');
+                    var headers = ['Ingredient', 'Calories', 'Fats', 'Squirrels', 'Carbohydrates', 'Sugar'];
+                    headers.forEach(header => {
+                        var th = document.createElement('th');
+                        th.textContent = header;
+                        headerRow.appendChild(th);
                     });
+                    thead.appendChild(headerRow);
+                    table.appendChild(thead);
+
+                    // Дані про інгредієнт
+                    var dataRow = document.createElement('tr');
+                    var ingredientData = [
+                        ingredientName, // Назва інгредієнта
+                        (data.totalNutrients.ENERC_KCAL ? data.totalNutrients.ENERC_KCAL.quantity + ' ' + data.totalNutrients.ENERC_KCAL.unit : 'N/A'),
+                        (data.totalNutrients.FAT ? data.totalNutrients.FAT.quantity + ' ' + data.totalNutrients.FAT.unit : 'N/A'),
+                        (data.totalNutrients.PROCNT ? data.totalNutrients.PROCNT.quantity + ' ' + data.totalNutrients.PROCNT.unit : 'N/A'),
+                        (data.totalNutrients.CHOCDF ? data.totalNutrients.CHOCDF.quantity + ' ' + data.totalNutrients.CHOCDF.unit : 'N/A'),
+                        (data.totalNutrients.SUGAR ? data.totalNutrients.SUGAR.quantity + ' ' + data.totalNutrients.SUGAR.unit : 'N/A')
+                    ];
+
+                    ingredientData.forEach(dataItem => {
+                        var td = document.createElement('td');
+                        td.textContent = dataItem;
+                        dataRow.appendChild(td);
+                    });
+
+                    tbody.appendChild(dataRow);
+                    table.appendChild(tbody);
+                    nutritionInfoElement.appendChild(table);
                 })
                 .catch(error => {
                     console.error('Помилка:', error);
