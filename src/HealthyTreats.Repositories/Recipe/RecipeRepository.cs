@@ -28,6 +28,9 @@ namespace HealthyTreats.Repositories.Recipe
         //ааааааааааааааааааааааааааа
 
 
+
+
+
         public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
         {
             return await _ctx.Categorys.ToListAsync();
@@ -64,10 +67,5 @@ namespace HealthyTreats.Repositories.Recipe
 
 
 
-        // Метод для перевірки, чи рецепт належить певному автору
-        public async Task<bool> IsRecipeAuthorAsync(Guid recipeId, Guid authorId)
-        {
-            return await _ctx.Recipes.AnyAsync(r => r.Id == recipeId && r.AuthorId == authorId);
-        }
     }
 }

@@ -47,13 +47,22 @@ namespace HealthyTreats.WebUI.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (Guid.TryParse(userId, out var authorId))
+            IEnumerable<Recipe> recipes;
+
+            if (User.IsInRole("Admin"))
             {
-                var recipes = await _recipeRepository.GetByAuthorAsync(authorId);
-                return View(recipes);
+                recipes = await _recipeRepository.GetAllAsyncWithDetails();
+            }
+            else if (Guid.TryParse(userId, out var authorId))
+            {
+                recipes = await _recipeRepository.GetByAuthorAsync(authorId);
+            }
+            else
+            {
+                return Unauthorized();
             }
 
-            return Unauthorized();
+            return View(recipes);
         }
 
         public async Task<IActionResult> Details(Guid id)
