@@ -3,6 +3,7 @@ using HealthyTreats.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using HealthyTreats.Repositories;
+using HealthyTreats.Repositories.Recipe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRepositories();
 builder.Services.AddHttpClient();
 
-
+builder.Services.AddScoped<IRecipeLikeRepository, RecipeLikeRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

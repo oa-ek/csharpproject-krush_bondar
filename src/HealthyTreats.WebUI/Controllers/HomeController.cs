@@ -11,10 +11,13 @@ namespace HealthyTreats.WebUI.Controllers
 	public class HomeController : Controller
 	{
         private readonly IRecipeRepository _recipeRepository;
+        private readonly IRecipeLikeRepository _recipeLikeRepository;
 
-        public HomeController(IRecipeRepository recipeRepository)
+        public HomeController(IRecipeRepository recipeRepository, 
+            IRecipeLikeRepository recipeLikeRepository)
         {
             _recipeRepository = recipeRepository;
+            _recipeLikeRepository = recipeLikeRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -30,7 +33,25 @@ namespace HealthyTreats.WebUI.Controllers
             {
                 return NotFound();
             }
+            var likes = await _recipeLikeRepository.GetLikesAsync(id);
+            ViewBag.Likes = likes;
             return View(recipe);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LikeRecipe(Guid id)
+        {
+            await _recipeLikeRepository.AddLikeAsync(id);
+            var likes = await _recipeLikeRepository.GetLikesAsync(id);
+            return Json(new { success = true, liked = true, likes });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UnlikeRecipe(Guid id)
+        {
+            await _recipeLikeRepository.RemoveLikeAsync(id);
+            var likes = await _recipeLikeRepository.GetLikesAsync(id);
+            return Json(new { success = true, liked = false, likes });
         }
     }
 }
