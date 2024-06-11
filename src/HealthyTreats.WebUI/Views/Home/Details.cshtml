@@ -10,6 +10,12 @@
         <i id="like-icon" class="fa-regular fa-heart"></i>
         <span id="like-count">@ViewBag.Likes</span>
     </button>
+
+
+    <h4>
+        <i class="fa-brands fa-facebook" style="color: #0548bd;leftmargin "></i> <i class="fa-brands fa-twitter" style="color: #4d88ef;"></i>
+        <i class="fa-brands fa-instagram" style="color: #d24204;"></i> <i class="fa-brands fa-telegram" style="color: #2057b6;"></i>
+    </h4>
 </div>
 
 @if (Model.Categories.Any())
@@ -17,7 +23,7 @@
     <p>Category: @Model.Categories.First().TitleCategory</p>
 }
 
-<h3>Ingredients:</h3>
+<h3>Ingredients: <i class="fa-solid fa-bowl-food" style="color: #000000;"></i></h3>
 <ul>
     @if (Model.Ingredients.Any())
     {
@@ -34,6 +40,11 @@
         <li>No ingredients available</li>
     }
 </ul>
+<br></br>
+<h3>
+    <i class="fa-brands fa-facebook" style="color: #0548bd;"></i> <i class="fa-brands fa-twitter" style="color: #4d88ef;"></i>
+    <i class="fa-brands fa-instagram" style="color: #d24204;"></i> <i class="fa-brands fa-telegram" style="color: #2057b6;"></i>
+</h3>
 
 @section Scripts {
     <script>
