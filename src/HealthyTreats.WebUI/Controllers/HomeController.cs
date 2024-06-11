@@ -20,11 +20,11 @@ namespace HealthyTreats.WebUI.Controllers
             _recipeLikeRepository = recipeLikeRepository;
         }
 
-        public async Task<IActionResult> Index()
+       /* public async Task<IActionResult> Index()
         {
             var recipes = await _recipeRepository.GetAllAsync();
             return View(recipes);
-        }
+        }*/
 
         public async Task<IActionResult> Details(Guid id)
         {
@@ -52,6 +52,24 @@ namespace HealthyTreats.WebUI.Controllers
             await _recipeLikeRepository.RemoveLikeAsync(id);
             var likes = await _recipeLikeRepository.GetLikesAsync(id);
             return Json(new { success = true, liked = false, likes });
+        }
+
+
+        //пошук 
+
+
+        public async Task<IActionResult> Index(string searchTerm)
+        {
+            IEnumerable<Recipe> recipes;
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                recipes = await _recipeRepository.SearchRecipesAsync(searchTerm);
+            }
+            else
+            {
+                recipes = await _recipeRepository.GetAllAsync();
+            }
+            return View(recipes);
         }
     }
 }
