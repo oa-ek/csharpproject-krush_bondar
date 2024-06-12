@@ -2,9 +2,9 @@
 
 @model IEnumerable<UserListItemModel>
 
-<a href="/usercontroller1/create" class="btn btn-primary float-end">Створити</a>
+<a href="/usercontroller1/create" class="btn btn-primary float-end">Add</a>
 
-<h1>Користувачі</h1>
+<h1>Users</h1>
 
 
 
@@ -24,12 +24,13 @@
             <tr>
                 <td>@u.FullName</td>
                 <td>@u.Email</td>
-
                 <td>@string.Join(", ", u.Roles)</td>
-                <td><input class="form-check-input" @(u.IsEmailConfirmed ? "checked" : "") type="checkbox" disabled></td>
                 <td>
-                    <a href="/usercontroller1/edit/@u.Id" class="btn btn-outline-primary">Edit</a>
-                    <a href="#" data-id="@u.Id" data-email="@u.Email" class="btn btn-outline-primary btn-remove-user">Remove</a>
+                    <input class="form-check-input" @(u.IsEmailConfirmed ? "checked" : "") type="checkbox" disabled>
+                    <div>
+                        <a href="/usercontroller1/edit/@u.Id" class="btn btn-outline-primary">Edit</a>
+                        <a href="#" data-id="@u.Id" data-email="@u.Email" class="btn btn-outline-primary btn-remove-user">Remove</a>
+                    </div>
                 </td>
             </tr>
         }
@@ -48,7 +49,7 @@
                 <p>Не можливо видалити користувача <strong class="userName">-</strong>.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -58,15 +59,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Видалення</h5>
+                <h5 class="modal-title">Delete</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Чи справді Ви бажаєте назавжди видалити користувача <strong class="userName">-</strong>?</p>
+                <p>Do you really want to permanently delete the user? <strong class="userName">-</strong>?</p>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn-primary btn btn-remove-approve">Так! Видаляємо!</a>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                <a href="#" class="btn-primary btn btn-remove-approve">Yes! Delete!</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
