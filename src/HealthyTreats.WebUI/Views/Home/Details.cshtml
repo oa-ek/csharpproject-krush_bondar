@@ -2,7 +2,9 @@
 <script src="https://kit.fontawesome.com/4335c0bc9b.js" crossorigin="anonymous"></script>
 
 <h2>@Model.Name</h2>
+<h5>Description: </h5>
 <p>@Model.Description</p>
+<h5>Instruction: </h5>
 <p>@Model.Instructons</p>
 <img src="~/@Model.ImagePath" alt="Recipe Image">
 <div id="like-section">
@@ -20,7 +22,7 @@
     <p>Category: @Model.Categories.First().TitleCategory</p>
 }
 
-<h3>Ingredients: <i class="fa-solid fa-apple-whole" style="color: #383a3e;"></i></h3>
+<h5>Ingredients: <i class="fa-solid fa-apple-whole" style="color: #383a3e;"></i></h5>
 <ul>
     @if (Model.Ingredients.Any())
     {
@@ -41,7 +43,7 @@
 
 
 
-<h3>Categories:</h3>
+<h5>Categories:</h5>
 <ul>
     <li>Dairy free</li>
     <li>Vegan</li>
@@ -54,10 +56,8 @@
             const likeIconElement = document.getElementById('like-icon');
             const likeCountElement = document.getElementById('like-count');
 
-            // Check if the recipe is already liked
             const alreadyLiked = likeIconElement.classList.contains('liked');
 
-            // Determine the URL based on like/unlike action
             const url = alreadyLiked ? `/Home/UnlikeRecipe/${recipeId}` : `/Home/LikeRecipe/${recipeId}`;
 
             fetch(url, {
