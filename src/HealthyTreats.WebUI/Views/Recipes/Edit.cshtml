@@ -89,6 +89,7 @@
             var container = document.getElementById("ingredientContainer");
             var newIngredient = document.createElement("div");
             newIngredient.classList.add("ingredient");
+            newIngredient.style.marginBottom = "15px";
             newIngredient.innerHTML = `
                                 <input type="text" name="ingredients[${ingredientCount}].Title" placeholder="Ingredient name">
                                 <input type="number" name="ingredients[${ingredientCount}].Quantity" placeholder="Quantity">
