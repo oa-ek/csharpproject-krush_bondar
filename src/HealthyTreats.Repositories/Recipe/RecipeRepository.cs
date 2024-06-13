@@ -61,14 +61,14 @@ namespace HealthyTreats.Repositories.Recipe
         }
 
         public async Task<Ingredient> GetIngredientAsync(Guid id)
-		{
-			return await _ctx.Ingredients.FirstOrDefaultAsync(i => i.Id == id);
-		}
+        {
+            return await _ctx.Ingredients.FirstOrDefaultAsync(i => i.Id == id);
+        }
 
 
         //пошук
 
-        
+
         public async Task<IEnumerable<HealthyTreats.Core.Entities.Recipe>> SearchRecipesAsync(string searchTerm)
         {
             return await _ctx.Set<HealthyTreats.Core.Entities.Recipe>()
@@ -77,5 +77,7 @@ namespace HealthyTreats.Repositories.Recipe
 
 
 
+        }
     }
 }
+

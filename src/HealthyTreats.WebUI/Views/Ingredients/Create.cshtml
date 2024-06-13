@@ -4,13 +4,6 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
 
-    <!-- <div class="container shadow p-4 mb-5 bg-white rounded">
-    <div class="mb-3">
-        @Html.DisplayNameFor(model => model.Title)
-        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
-        <span asp-validation-for="Title" class="text-danger"></span> -->
-
-
     <div id="ingredientContainer" class="mb-3">
         <div class="ingredient">
             <input type="text" name="Title" placeholder="Name ingredient" class="form-control">
@@ -26,9 +19,6 @@
     </div>
 
     <button class="btn btn-primary" type="submit">Додати інгредієнт</button>
-
-    <div/>
-</form>
 </form>
 
 @section Scripts {
@@ -40,19 +30,18 @@
             var newIngredient = document.createElement("div");
             newIngredient.classList.add("ingredient");
             newIngredient.innerHTML = `
-                        <input type="text" name="Ingredients[${ingredientCount}].Title" placeholder="Name ingredient" class="form-control">
-                        <input type="number" name="Ingredients[${ingredientCount}].Quantity" placeholder="Quantity" class="form-control" min="0">
-                        <select name="Ingredients[${ingredientCount}].Unit" class="form-control">
-                            <option value="g">g</option>
-                            <option value="ml">ml</option>
-                            <option value="pieces">pieces</option>
-                            <option value="teaspoon">teaspoon</option>
-                            <option value="tablespoon">tablespoon</option>
-                        </select>
-                    `;
+                                <input type="text" name="Ingredients[${ingredientCount}].Title" placeholder="Name ingredient" class="form-control">
+                                <input type="number" name="Ingredients[${ingredientCount}].Quantity" placeholder="Quantity" class="form-control" min="0">
+                                <select name="Ingredients[${ingredientCount}].Unit" class="form-control">
+                                    <option value="g">g</option>
+                                    <option value="ml">ml</option>
+                                    <option value="pieces">pieces</option>
+                                    <option value="teaspoon">teaspoon</option>
+                                    <option value="tablespoon">tablespoon</option>
+                                </select>
+                            `;
             container.appendChild(newIngredient);
             ingredientCount++;
         });
     </script>
 }
-
