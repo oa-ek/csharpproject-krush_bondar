@@ -18,6 +18,7 @@ using HealthyTreats.Repositories.Comon;
 using System.Text.Json;
 using HealthyTreats.WebUI.Models;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 namespace HealthyTreats.WebUI.Controllers
 {
 
@@ -72,6 +73,9 @@ namespace HealthyTreats.WebUI.Controllers
             {
                 return NotFound();
             }
+
+            
+
             return View(recipe);
 
         }
@@ -154,7 +158,6 @@ namespace HealthyTreats.WebUI.Controllers
 
 
 
-
         public async Task<IActionResult> Edit(Guid id)
         {
             var recipe = await _recipeRepository.GetAsync(id);
@@ -162,6 +165,7 @@ namespace HealthyTreats.WebUI.Controllers
             {
                 return NotFound();
             }
+
             ViewBag.Categories = await _recipeRepository.GetAllCategoriesAsync();
             return View(recipe);
         }
@@ -169,7 +173,7 @@ namespace HealthyTreats.WebUI.Controllers
         // POST: Recipes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, Recipe model)
+        public async Task<IActionResult> Edit(Guid id, Recipe model, List<Guid> selectedCategories, List<Ingredient> ingredients)
         {
             if (id != model.Id)
             {
@@ -180,6 +184,24 @@ namespace HealthyTreats.WebUI.Controllers
             {
                 try
                 {
+                    // Оновлення категорій
+                    model.Categories = new List<Category>();
+                    foreach (var categoryId in selectedCategories)
+                    {
+                        var category = await _recipeRepository.GetCategoryAsync(categoryId);
+                        if (category != null)
+                        {
+                            model.Categories.Add(category);
+                        }
+                    }
+
+                    // Оновлення інгредієнтів
+                    model.Ingredients = new List<Ingredient>();
+                    foreach (var ingredient in ingredients)
+                    {
+                        model.Ingredients.Add(ingredient);
+                    }
+
                     await _recipeRepository.UpdateAsync(model);
                 }
                 catch (Exception)
@@ -188,9 +210,10 @@ namespace HealthyTreats.WebUI.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.Categories = await _recipeRepository.GetAllCategoriesAsync();
             return View(model);
         }
-
 
 
 

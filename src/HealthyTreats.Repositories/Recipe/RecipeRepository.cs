@@ -55,6 +55,7 @@ namespace HealthyTreats.Repositories.Recipe
         public async Task<HealthyTreats.Core.Entities.Recipe> GetAsync(Guid id)
         {
             return await _ctx.Recipes
+                .Include(r => r.Categories)
                 .Include(r => r.Ingredients)
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
@@ -65,7 +66,11 @@ namespace HealthyTreats.Repositories.Recipe
 		}
 
 
-
+        public async Task UpdateAsync(HealthyTreats.Core.Entities.Recipe model)
+        {
+            _ctx.Update(model);
+            await _ctx.SaveChangesAsync();
+        }
 
     }
 }

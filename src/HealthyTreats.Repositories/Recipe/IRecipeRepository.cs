@@ -18,6 +18,7 @@ namespace HealthyTreats.Repositories.Recipe
         Task<List<Ingredient>> GetAllIngredientsAsync();
 		Task<Ingredient> GetIngredientAsync(Guid id);
 
+        
     }
 
 }

@@ -1,10 +1,10 @@
 ﻿@using HealthyTreats.Core.Entities
 @model Recipe
 @{
-    var categories = ViewBag.Categories as List<Category>; // Оновлено для відображення списку категорій
+    var categories = ViewBag.Categories as List<Category>;
 }
 
-<h1>New recipe</h1>
+<h1>Edit Recipe</h1>
 
 <form asp-action="Edit" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
@@ -30,61 +30,43 @@
         <span asp-validation-for="Instructons" class="text-danger"></span>
     </div>
 
-
-
-    <ul id="ingredientList"></ul>
-
     <div class="form-group mt-3">
         @Html.DisplayNameFor(model => model.ImageFile)
         <input asp-for="ImageFile" accept="image/*" />
         <span asp-validation-for="ImageFile" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label asp-for="Ingredients">Ingredient</label>
-        <div id="ingredientContainer">
+    <h3>Ingredients:</h3>
+    <div id="ingredientContainer">
+        @* Convert Ingredients collection to list *@
+        @{
+            var ingredientsList = Model.Ingredients.ToList();
+        }
+        @for (int i = 0; i < ingredientsList.Count; i++)
+        {
             <div class="ingredient">
-                <input type="text" name="Ingredients[0].Title" placeholder="Name ingredient">
-                <input type="number" name="Ingredients[0].Quantity" placeholder="Number">
-                <input type="text" name="Ingredients[0].Unit" placeholder="Unit">
+                <input type="hidden" name="ingredients[@i].Id" value="@ingredientsList[i].Id" />
+                <input type="text" name="ingredients[@i].Title" value="@ingredientsList[i].Title" placeholder="Ingredient name" />
+                <input type="number" name="ingredients[@i].Quantity" value="@ingredientsList[i].Quantity" placeholder="Quantity" />
+                <input type="text" name="ingredients[@i].Unit" value="@ingredientsList[i].Unit" placeholder="Unit" />
             </div>
-        </div>
-        <button type="button" id="addIngredientBtn" class="btn btn-primary">Add ingredient</button>
-
-        <span asp-validation-for="Ingredients" class="text-danger"></span>
+        }
     </div>
+    <button type="button" id="addIngredientBtn" class="btn btn-primary">Add Ingredient</button>
 
-
-
-    <!-- Список чекбоксів категорій -->
-    <div class="mb-3">
+    <h3>Categories:</h3>
+    @foreach (var category in categories)
+    {
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="DairyFree" value="1">
-            <label class="form-check-label" for="DairyFree">
-                Dairy free
+            <input class="form-check-input" type="checkbox" name="selectedCategories" value="@category.Id"
+            @(Model.Categories.Any(c => c.Id == category.Id) ? "checked" : "") />
+            <label class="form-check-label" for="category_@category.Id">
+                @category.TitleCategory
             </label>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="Vegan" value="2">
-            <label class="form-check-label" for="Vegan">
-                Vegan
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="Vegetarian" value="3">
-            <label class="form-check-label" for="Vegetarian">
-                Vegetarian
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="GlutenFree" value="4">
-            <label class="form-check-label" for="GlutenFree">
-                Gluten free
-            </label>
-        </div>
-    </div>
+    }
 
-    <button class="btn btn-primary" type="submit">Зберегти</button>
+    <button class="btn btn-primary" type="submit">Save</button>
 </form>
 
 @section Scripts {
@@ -92,17 +74,17 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
-        var ingredientCount = 1; // Лічильник для унікальних індексів полів
+        var ingredientCount = @Model.Ingredients.Count;
 
         document.getElementById("addIngredientBtn").addEventListener("click", function () {
             var container = document.getElementById("ingredientContainer");
             var newIngredient = document.createElement("div");
             newIngredient.classList.add("ingredient");
             newIngredient.innerHTML = `
-                    <input type="text" name="Ingredients[${ingredientCount}].Title" placeholder="Назва інгредієнту">
-                    <input type="number" name="Ingredients[${ingredientCount}].Quantity" placeholder="Кількість">
-                    <input type="text" name="Ingredients[${ingredientCount}].Unit" placeholder="Одиниця виміру">
-                        `;
+                        <input type="text" name="ingredients[${ingredientCount}].Title" placeholder="Ingredient name">
+                        <input type="number" name="ingredients[${ingredientCount}].Quantity" placeholder="Quantity">
+                        <input type="text" name="ingredients[${ingredientCount}].Unit" placeholder="Unit">
+                    `;
             container.appendChild(newIngredient);
             ingredientCount++;
         });
