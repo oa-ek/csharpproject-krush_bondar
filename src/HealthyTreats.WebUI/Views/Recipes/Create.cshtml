@@ -9,7 +9,7 @@
 <form asp-action="Create" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
-
+    <div class="container shadow p-4 mb-5 bg-white rounded">
     <div class="mb-3">
         @Html.DisplayNameFor(model => model.Name)
         @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
@@ -35,7 +35,7 @@
         <input asp-for="ImageFile" accept="image/*" />
         <span asp-validation-for="ImageFile" class="text-danger"></span>
     </div>
-
+        <br />
     <div class="mb-3">
         <label asp-for="Ingredients">Ingredient</label>
         <div id="ingredientContainer">
@@ -45,14 +45,19 @@
                 <select name="Ingredients[0].Unit" class="form-control">
                     <option value="g">g</option>
                     <option value="ml">ml</option>
+                    <option value="kg">kg</option>
+                    <option value="cup">cup</option>
                     <option value="pieces">pieces</option>
                     <option value="teaspoon">teaspoon</option>
                     <option value="tablespoon">tablespoon</option>
                 </select>
             </div>
+            <br/>
         </div>
+
         <button type="button" id="addIngredientBtn" class="btn btn-primary">Add ingredient</button>
         <span asp-validation-for="Ingredients" class="text-danger"></span>
+      
     </div>
 
     <div class="mb-3">
@@ -83,6 +88,7 @@
     </div>
 
     <button class="btn btn-primary" type="submit">Save</button>
+    </div>
 </form>
 @section Scripts {
     @{
@@ -94,12 +100,15 @@
             var container = document.getElementById("ingredientContainer");
             var newIngredient = document.createElement("div");
             newIngredient.classList.add("ingredient");
+            newIngredient.style.marginBottom = "15px";
             newIngredient.innerHTML = `
                         <input type="text" name="Ingredients[${ingredientCount}].Title" placeholder="Name ingredient">
                         <input type="number" name="Ingredients[${ingredientCount}].Quantity" placeholder="Quantity">
                         <select name="Ingredients[${ingredientCount}].Unit" class="form-control">
                             <option value="g">g</option>
                             <option value="ml">ml</option>
+                            <option value="kg">kg</option>
+                            <option value="cup">cup</option>
                             <option value="pieces">pieces</option>
                             <option value="teaspoon">teaspoon</option>
                             <option value="tablespoon">tablespoon</option>

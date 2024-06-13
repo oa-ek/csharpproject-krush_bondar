@@ -4,14 +4,14 @@
     var categories = ViewBag.Categories as List<Category>; // Оновлено для відображення списку категорій
 }
 
-<h1>New recipe</h1>
+<h1>Edit recipe</h1>
 
 <form asp-action="Edit" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
 
     @Html.HiddenFor(model => model.Id)
-
+    <div class="container shadow p-4 mb-5 bg-white rounded">
     <div class="mb-3">
         @Html.DisplayNameFor(model => model.Name)
         @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
@@ -48,6 +48,7 @@
                 <input type="number" name="Ingredients[0].Quantity" placeholder="Number">
                 <input type="text" name="Ingredients[0].Unit" placeholder="Unit">
             </div>
+                <br />
         </div>
         <button type="button" id="addIngredientBtn" class="btn btn-primary">Add ingredient</button>
 
@@ -83,8 +84,8 @@
             </label>
         </div>
     </div>
-
     <button class="btn btn-primary" type="submit">Зберегти</button>
+    <div/>
 </form>
 
 @section Scripts {
@@ -98,10 +99,11 @@
             var container = document.getElementById("ingredientContainer");
             var newIngredient = document.createElement("div");
             newIngredient.classList.add("ingredient");
+            newIngredient.style.marginBottom = "15px";
             newIngredient.innerHTML = `
-                    <input type="text" name="Ingredients[${ingredientCount}].Title" placeholder="Назва інгредієнту">
-                    <input type="number" name="Ingredients[${ingredientCount}].Quantity" placeholder="Кількість">
-                    <input type="text" name="Ingredients[${ingredientCount}].Unit" placeholder="Одиниця виміру">
+                            <input type="text" name="Ingredients[${ingredientCount}].Title" placeholder="Name ingredient">
+                            <input type="number" name="Ingredients[${ingredientCount}].Quantity" placeholder="Quantity">
+                            <input type="text" name="Ingredients[${ingredientCount}].Unit" placeholder="Unit">
                         `;
             container.appendChild(newIngredient);
             ingredientCount++;
