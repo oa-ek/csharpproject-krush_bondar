@@ -1,7 +1,9 @@
 ﻿@model HealthyTreats.Core.Entities.Recipe
 
 <h2>@Model.Name</h2>
+<h5>Description: </h5>
 <p>@Model.Description</p>
+<h5>Instruction: </h5>
 <p>@Model.Instructons</p>
 <img src="~/@Model.ImagePath" alt="Recipe Image">
 
@@ -10,7 +12,7 @@
     <p>Category: @Model.Categories.First().TitleCategory</p>
 }
 
-<h3>Ingredients:</h3>
+<h5>Ingredients:</h5>
 <ul>
     @if (Model.Ingredients.Any())
     {
@@ -26,7 +28,7 @@
     }
 </ul>
 
-<h3>Categories:</h3>
+<h5>Categories:</h5>
 <ul>
     <li>Dairy free</li>
     <li>Vegan</li>
