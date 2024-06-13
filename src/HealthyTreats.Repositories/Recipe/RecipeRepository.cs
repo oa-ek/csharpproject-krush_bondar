@@ -55,6 +55,7 @@ namespace HealthyTreats.Repositories.Recipe
         public async Task<HealthyTreats.Core.Entities.Recipe> GetAsync(Guid id)
         {
             return await _ctx.Recipes
+                .Include(r => r.Categories)
                 .Include(r => r.Ingredients)
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
@@ -73,7 +74,8 @@ namespace HealthyTreats.Repositories.Recipe
             return await _ctx.Set<HealthyTreats.Core.Entities.Recipe>()
                 .Where(r => r.Name.Contains(searchTerm) || r.Description.Contains(searchTerm))
                 .ToListAsync();
-        }
+
+
 
     }
 }

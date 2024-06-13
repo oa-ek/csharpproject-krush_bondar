@@ -41,7 +41,7 @@ namespace HealthyTreats.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Ingredient model)
+        public async Task<IActionResult> Create([Bind("Title, Quantity, Unit")] Ingredient model)
         {
             if (ModelState.IsValid)
             {
