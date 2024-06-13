@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<a href="/Ingredients/Create" class="btn btn-primary float-end">Додати інгредієнт</a>
+<a href="/Ingredients/Create" class="btn btn-primary float-end">Add ingredient</a>
 
 <h2 class="mt-3 mb-3">@ViewData["Title"]</h2>
 
@@ -12,10 +12,10 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Назва</th>
-                    <th>Кількість</th>
-                    <th>Одиниця виміру</th>
-                    <th>Дії</th>
+             <th>Name</th>
+            <th>Number</th>
+            <th>Unit</th>
+            <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,8 +27,8 @@
                         <td>@ingredient.Unit</td>
                         <td>
 
-                    <a href="/Ingredients/Edit/@ingredient.Id" class="btn btn-outline-primary">Редагувати</a>
-                    <a href="/Ingredients/Delete/@ingredient.Id" class="btn btn-outline-primary">Видалити</a>
+                    <a href="/Ingredients/Edit/@ingredient.Id" class="btn btn-outline-primary">Edit</a>
+                    <a href="/Ingredients/Delete/@ingredient.Id" class="btn btn-outline-primary">Delete</a>
                         </td>
                     </tr>
                 }

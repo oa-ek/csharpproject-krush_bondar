@@ -2,10 +2,14 @@
     ViewData["Title"] = "Healthy Treats";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+
 <a href="/Recipes/Create" class="btn btn-primary float-end">Add a recipe</a>
 
-<h1>@ViewData["Title"]</h1>
+<h2>Recipes <i class="bi bi-cake2"></i></h2>
 
+<br />
 
 <div class="row">
     @if (Model != null)

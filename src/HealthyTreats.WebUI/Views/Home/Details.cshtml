@@ -10,6 +10,9 @@
         <i id="like-icon" class="fa-regular fa-heart"></i>
         <span id="like-count">@ViewBag.Likes</span>
     </button>
+
+
+
 </div>
 
 @if (Model.Categories.Any())
@@ -17,7 +20,7 @@
     <p>Category: @Model.Categories.First().TitleCategory</p>
 }
 
-<h3>Ingredients:</h3>
+<h3>Ingredients: <i class="fa-solid fa-apple-whole" style="color: #383a3e;"></i></h3>
 <ul>
     @if (Model.Ingredients.Any())
     {
@@ -34,6 +37,8 @@
         <li>No ingredients available</li>
     }
 </ul>
+<br></br>
+
 
 @section Scripts {
     <script>
@@ -78,6 +83,7 @@
                     }
                 });
         }
+       
     </script>
 
     <style>
