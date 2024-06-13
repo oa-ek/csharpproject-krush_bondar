@@ -3,21 +3,25 @@
 <form asp-action="Create" method="post">
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
-
+    <div class="container shadow p-4 mb-5 bg-white rounded">
     <div id="ingredientContainer" class="mb-3">
         <div class="ingredient">
             <input type="text" name="Title" placeholder="Name ingredient" class="form-control">
+            </br>
             <input type="number" name="Quantity" placeholder="Quantity" class="form-control" min="0">
+                </br>
             <select name="Unit" class="form-control">
                 <option value="g">g</option>
                 <option value="ml">ml</option>
+                    <option value="kg">kg</option>
+                    <option value="cup">cup</option>
                 <option value="pieces">pieces</option>
                 <option value="teaspoon">teaspoon</option>
                 <option value="tablespoon">tablespoon</option>
             </select>
         </div>
     </div>
-
+    </div>
     <button class="btn btn-primary" type="submit">Додати інгредієнт</button>
 </form>
 
@@ -35,6 +39,8 @@
                                 <select name="Ingredients[${ingredientCount}].Unit" class="form-control">
                                     <option value="g">g</option>
                                     <option value="ml">ml</option>
+                                     <option value="kg">kg</option>
+                                    <option value="cup">cup</option>
                                     <option value="pieces">pieces</option>
                                     <option value="teaspoon">teaspoon</option>
                                     <option value="tablespoon">tablespoon</option>
