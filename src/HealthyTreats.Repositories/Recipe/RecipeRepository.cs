@@ -65,7 +65,15 @@ namespace HealthyTreats.Repositories.Recipe
 		}
 
 
+        //пошук
 
+        
+        public async Task<IEnumerable<HealthyTreats.Core.Entities.Recipe>> SearchRecipesAsync(string searchTerm)
+        {
+            return await _ctx.Set<HealthyTreats.Core.Entities.Recipe>()
+                .Where(r => r.Name.Contains(searchTerm) || r.Description.Contains(searchTerm))
+                .ToListAsync();
+        }
 
     }
 }

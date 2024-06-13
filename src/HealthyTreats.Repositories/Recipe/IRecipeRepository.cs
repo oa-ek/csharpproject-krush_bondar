@@ -11,6 +11,8 @@ namespace HealthyTreats.Repositories.Recipe
 
     public interface IRecipeRepository : IRepository<HealthyTreats.Core.Entities.Recipe, Guid>
     {
+        Task<IEnumerable<HealthyTreats.Core.Entities.Recipe>> SearchRecipesAsync(string searchTerm);
+
         Task<IEnumerable<HealthyTreats.Core.Entities.Recipe>> GetByAuthorAsync(Guid authorId);
         Task<IEnumerable<HealthyTreats.Core.Entities.Recipe>> GetAllAsyncWithDetails();
         Task<IEnumerable<Category>> GetAllCategoriesAsync();

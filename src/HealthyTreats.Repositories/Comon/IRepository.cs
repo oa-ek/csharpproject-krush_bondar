@@ -10,6 +10,8 @@ namespace HealthyTreats.Repositories.Comon
     public interface IRepository<TEntity, TKey>
          where TEntity : class, IEntity<TKey>
     {
+
+
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetAsync(TKey id);
         Task CreateAsync(TEntity entity);

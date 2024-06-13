@@ -3,12 +3,21 @@
 }
 
 <div class="text-center">
-   
-    
 </div>
 
 <div class="container">
     <h2>Recipes</h2>
+    <br />
+
+    <form asp-controller="Home" asp-action="Index" method="get">
+        <div class="input-group mb-3">
+            <input type="text" name="searchTerm" value="@Context.Request.Query["searchTerm"]" class="form-control" placeholder="Search recipes" />
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+
     <br />
 
     <div class="row">
